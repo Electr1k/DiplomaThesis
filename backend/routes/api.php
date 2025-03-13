@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Models\Enums\Permissions\RolePermissions;
 use Illuminate\Http\Request;
@@ -13,4 +14,8 @@ Route::prefix('v1')
     ->group(function () {
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('roles', RoleController::class)->only(['index', 'show']);
+
+        Route:://middleware('permission:'.RolePermissions::READ->value)->
+        apiResource('permissions', PermissionController::class)->only(['index', 'show']);
+
     });
