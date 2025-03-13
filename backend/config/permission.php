@@ -201,7 +201,6 @@ return [
     ],
 
     'super_admin' => [
-        'role_name' => 'super_admin',
-        'role_title' => 'Главный администратор',
+        'role_name' => 'Главный администратор',
     ],
 ];
