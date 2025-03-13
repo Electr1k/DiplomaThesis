@@ -112,4 +112,8 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'default_user' => [
+        'email' => 'main@main.ru',
+        'code' => '654321',
+    ],
 ];
