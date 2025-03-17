@@ -2,13 +2,9 @@
 
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
-use App\Models\Enums\Permissions\RolePermissions;
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
-//Route::get('/user', function (Request $request) {
-//    return $request->user();
-//});//->middleware('auth:sanctum');
 
 Route::prefix('v1')
     ->group(function () {
@@ -17,5 +13,8 @@ Route::prefix('v1')
 
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('permissions', PermissionController::class)->only(['index', 'show']);
+
+        Route:://middleware('permission:'.RolePermissions::READ->value)->
+        apiResource('users', UserController::class)->only(['index', 'show']);
 
     });
