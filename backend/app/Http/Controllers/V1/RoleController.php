@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Roles\UserRequest;
+use App\Http\Requests\Roles\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
 use App\Repositories\RoleRepository;
 use App\Service\RoleService;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -38,7 +37,7 @@ class RoleController extends Controller
     /**
      * Создание роли.
      */
-    public function store(UserRequest $role): RoleResource
+    public function store(RoleRequest $role): RoleResource
     {
         return new RoleResource($this->service->store($role->validated()));
     }
@@ -46,7 +45,7 @@ class RoleController extends Controller
     /**
      * Обнолвение роли.
      */
-    public function update(UserRequest $request, Role $role): RoleResource
+    public function update(RoleRequest $request, Role $role): RoleResource
     {
         return new RoleResource($this->service->update($request->validated(), $role));
     }
