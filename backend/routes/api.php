@@ -1,13 +1,20 @@
 <?php
 
+use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('v1')
+Route::prefix('v1')->middleware('auth:api')
     ->group(function () {
+        Route::prefix('auth')->group(function () {
+            Route::post('login', [AuthController::class, 'login'])->withoutMiddleware('auth:api');
+            Route::post('refresh', [AuthController::class, 'refresh'])->withoutMiddleware('auth:api');
+            Route::get('logout', [AuthController::class, 'logout']);
+        });
+
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('permissions', PermissionController::class)->only(['index', 'show']);
 
