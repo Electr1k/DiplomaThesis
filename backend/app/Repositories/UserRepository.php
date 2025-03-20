@@ -21,7 +21,7 @@ class UserRepository
      */
     public function store(array $data): User
     {
-        $user = User::create([
+        $user = User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],

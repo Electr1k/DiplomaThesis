@@ -21,6 +21,6 @@ class CabinetRepository
      */
     public function store(array $data): Cabinet
     {
-        return Cabinet::create($data);
+        return Cabinet::query()->updateOrCreate(['courier_partner_id' => $data['courier_partner_id']], $data);
     }
 }

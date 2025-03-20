@@ -21,7 +21,7 @@ class RoleRepository
      */
     public function store(array $data): Role
     {
-        $role = Role::create([
+        $role = Role::query()->create([
             'name' => $data['name'],
             'guard_name' => 'web'
         ]);
