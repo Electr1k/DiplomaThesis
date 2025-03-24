@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Enums\ImportCourierStatusEnum;
+use App\Models\Enums\CourierRegistrationStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('couriers', function (Blueprint $table) {
-            $table->comment('Курьеры');
+        Schema::create('courier_registrations', function (Blueprint $table) {
+            $table->comment('Данные о регистрации курьеров');
 
             $table->id()
                 ->primary()
@@ -32,11 +32,12 @@ return new class extends Migration
                 ->nullable()
                 ->comment('Фамилия курьера');
 
-            $table->string('middlename')
+            $table->string('middle_name')
                 ->nullable()
                 ->comment('Отчество курьера');
 
             $table->string('phone')
+                ->index()
                 ->comment('Телефонный номер курьера');
 
             $table->string('email')
@@ -50,6 +51,11 @@ return new class extends Migration
             $table->string('citizenship')
                 ->comment('Гражданство');
 
+            $table->string('passport_number', 10)
+                ->nullable()
+                ->unique()
+                ->comment('Серия и номер паспорта');
+
             $table->foreignId('courier_partner_id')
                 ->nullable()
                 ->comment('Идентификатор кабинета, которому пренадлежит курьер')
@@ -57,7 +63,7 @@ return new class extends Migration
 
             $table->string('status')
                 ->comment('Внутренний статус регистрации курьера')
-                ->default(ImportCourierStatusEnum::NEW);
+                ->default(CourierRegistrationStatusEnum::NEW);
 
             $table->timestamps();
         });
@@ -68,6 +74,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('couriers');
+        Schema::dropIfExists('courier_registrations');
     }
 };

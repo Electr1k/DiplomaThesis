@@ -4,8 +4,8 @@ namespace App\Service;
 
 use App\Http\Requests\Couriers\CourierStoreRequest;
 use App\Jobs\CreateCourierJob;
-use App\Models\Courier;
-use App\Repositories\CabinetRepository;
+use App\Models\CourierRegistration;
+use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
 use Illuminate\Support\Collection;
@@ -15,6 +15,7 @@ readonly class CourierService
 
     public function __construct(
         private CourierRepository $courierRepository,
+        private CourierRegistrationRepository $courierRegistrationRepository,
         private DostavistaClient $cabinetService,
     ){}
 
@@ -23,25 +24,20 @@ readonly class CourierService
         return $this->courierRepository->getAll();
     }
 
-    public function store(CourierStoreRequest $data): void
+    public function store(array $data): void
     {
-        $courier = Courier::query()->create($data->validated());
+        $courier = $this->courierRegistrationRepository->store($data);
 
-        // Вызов в джобе
+        // Вызов в джобе (асинхронно)
         CreateCourierJob::dispatch($courier);
     }
 
     public function fetch(array $data): void
     {
-        try {
-            $couriers = $this->cabinetService->fetchCouriers($data);
+        $couriers = $this->cabinetService->fetchCouriers($data);
 
-            foreach ($couriers as $courier) {
-                $this->courierRepository->store($courier);
-            }
-        }
-        catch (\Exception $exception){
-
+        foreach ($couriers['couriers'] as $courier) {
+            $this->courierRepository->store($courier);
         }
     }
 }

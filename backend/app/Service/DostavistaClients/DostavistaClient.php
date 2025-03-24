@@ -29,16 +29,25 @@ class DostavistaClient
     {
         /** @var string $host */
         $host = config('dostavista.client.host');
+        if (! $host) {
+            throw new RuntimeException('Empty config [dostavista.client.host]');
+        }
         $this->host = $host;
 
         $timeout = config('dostavista.client.timeout');
         if (! $timeout) {
             throw new RuntimeException('Empty config [dostavista.client.timeout]');
         }
-        if (! is_int($timeout)) {
+        if (! is_numeric($timeout)) {
             throw new RuntimeException('Config [dostavista.client.timeout] must be int');
         }
-        $this->timeout = $timeout;
+        $this->timeout = (int) $timeout;
+
+        $token = config('dostavista.client.token');
+        if (! $token) {
+            throw new RuntimeException('Empty config [dostavista.client.token]');
+        }
+        $this->token = $token;
     }
 
     /**
@@ -113,6 +122,6 @@ class DostavistaClient
                 "offset" => $data["offset"] ?? null,
                 "limit" => $data["limit"] ?? null,
             ]
-        )['couriers'];
+        );
     }
 }

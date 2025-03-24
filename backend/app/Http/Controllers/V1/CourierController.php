@@ -6,8 +6,11 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Couriers\CourierStoreRequest;
+use App\Http\Resources\CourierRegistrationResource;
 use App\Http\Resources\CourierResource;
+use App\Models\Courier;
 use App\Models\User;
+use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\CourierService;
 use Illuminate\Http\JsonResponse;
@@ -29,9 +32,9 @@ class CourierController extends Controller
     /**
      * Получение выбранного курьера.
      */
-    public function show(User $user): CourierResource
+    public function show(Courier $courier): CourierResource
     {
-        return new CourierResource($user);
+        return new CourierResource($courier);
     }
 
     /**
@@ -44,4 +47,12 @@ class CourierController extends Controller
         return response()->json(['message' => 'Courier successfully created'], 201);
     }
 
+
+    /**
+     * Получение списка регистраций курьеров.
+     */
+    public function registrations(CourierRegistrationRepository $repository): AnonymousResourceCollection
+    {
+        return CourierRegistrationResource::collection($repository->getAll());
+    }
 }

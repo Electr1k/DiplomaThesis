@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums;
 
-enum ImportCourierStatusEnum: string
+enum CourierRegistrationStatusEnum: string
 {
     // Клиент добавлен в систему и ожидает создание в Достависто
     case NEW = 'new';
