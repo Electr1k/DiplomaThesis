@@ -60,4 +60,11 @@ Route::prefix('v1')->middleware('auth:api')
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
         apiResource('cabinets', CabinetController::class)->only(['index', 'show']);
 
+        Route:://middleware('permission:'.CourierPermissions::READ->value)->
+        get('/test', function (\App\Repositories\OrdersRepository $orders) {
+           dd( $orders->getAll()->first()->order_status);
+
+            return response()->json($orders->getAll()->first()->toArray());
+        });
+
     });
