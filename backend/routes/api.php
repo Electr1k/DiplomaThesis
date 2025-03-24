@@ -41,4 +41,8 @@ Route::prefix('v1')->middleware('auth:api')
 
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('users', UserController::class)->only(['destroy']);
+
+        Route::apiResource('users', UserController::class)->only(['destroy']);
+
+        Route::apiResource('', UserController::class);
     });

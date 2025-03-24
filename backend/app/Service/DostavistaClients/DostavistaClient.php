@@ -20,6 +20,10 @@ class DostavistaClient
 
     private const URI_V1_CREATE_COURIER = '/1.0/create-courier';
 
+    private const URI_V1_COURIERS = '/1.1/couriers';
+
+    private const URI_V1_ORDERS = '/1.1/orders';
+
 
     public function __construct()
     {
@@ -89,5 +93,26 @@ class DostavistaClient
             self::URI_V1_CREATE_COURIER,
             $data
         );
+    }
+
+    public function fetchOrders(array $data): array {
+        /** @phpstan-ignore-next-line */
+        return $this->makeRequest(
+            'POST',
+            self::URI_V1_CREATE_COURIER,
+            $data
+        );
+    }
+
+    public function fetchCouriers(array $data): array {
+        /** @phpstan-ignore-next-line */
+        return $this->makeRequest(
+            'POST',
+            self::URI_V1_COURIERS,
+            [
+                "offset" => $data["offset"] ?? null,
+                "limit" => $data["limit"] ?? null,
+            ]
+        )['couriers'];
     }
 }

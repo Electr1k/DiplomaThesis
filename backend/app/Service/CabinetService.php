@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Models\Cabinet;
 use App\Repositories\CabinetRepository;
 use App\Service\DostavistaClients\DostavistaClient;
 use Illuminate\Support\Collection;
@@ -20,7 +19,7 @@ readonly class CabinetService
         return $this->cabinetRepository->getAll();
     }
 
-    public function import(): void
+    public function fetch(): void
     {
        $cabinets = $this->dostavistaClient->fetchCabinet();
 
