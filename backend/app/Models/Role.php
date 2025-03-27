@@ -10,11 +10,6 @@ class Role extends Model
 {
     use HasPermissions;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'guard_name',

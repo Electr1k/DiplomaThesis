@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\Orders\PaymentMethod;
-use App\Models\Enums\Orders\Status;
+use App\Models\Enums\Orders\OrderStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $courier_last_name - Фамилия курьера
  * @property string $courier_middle_name - Отчество курьера
  * @property PaymentMethod $payment_method - Метод оплаты заказа
- * @property Status $order_status - Статус заказа
+ * @property OrderStatus $order_status - Статус заказа
  * @property float $order_payment_amount - Сумма пополнения
  * @property float $service_commission_amount - Комиссия Достависты
  * @property float $partner_commission_amount - Комиссия партнера
@@ -65,6 +65,6 @@ class Order extends Model
         'courier_payment_amount' => 'float',
         'courier_additional_payments_amount' => 'float',
         'payment_method' => PaymentMethod::class,
-        'order_status' => Status::class,
+        'order_status' => OrderStatus::class,
     ];
 }

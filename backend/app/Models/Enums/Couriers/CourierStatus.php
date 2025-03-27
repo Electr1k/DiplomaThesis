@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums\Couriers;
 
-enum Status: string
+enum CourierStatus: string
 {
     case APPROVED = 'approved';
 }

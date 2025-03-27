@@ -2,9 +2,7 @@
 
 namespace App\Service;
 
-use App\Http\Requests\Couriers\CourierStoreRequest;
 use App\Jobs\CreateCourierJob;
-use App\Models\CourierRegistration;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;

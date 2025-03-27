@@ -69,13 +69,17 @@ return new class extends Migration
                 ->comment('Адрес последней точки');
 
             $table->time('order_lead_time')
-                ->comment('order_lead_time');
+                ->comment('Продолжительность выполнения заказа');
 
             $table->dateTimeTz('updated_datetime')
                 ->index()
                 ->comment('Время изменения данных модели');
 
             $table->timestamps();
+
+            $table->foreign('courier_id')
+                ->references('courier_id')
+                ->on('couriers');
         });
     }
 

@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->bigInteger('courier_partner_id')
                 ->primary()
-                ->unique()
                 ->comment('Идентификатор кабинета партнера');
 
             $table->string('region_name')

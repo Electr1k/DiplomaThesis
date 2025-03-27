@@ -2,6 +2,7 @@
 
 namespace App\Service\DostavistaClients;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 use Throwable;
@@ -23,6 +24,8 @@ class DostavistaClient
     private const URI_V1_COURIERS = '/1.1/couriers';
 
     private const URI_V1_ORDERS = '/1.1/orders';
+
+    private const URI_V1_TRANSACTIONS = '/1.1/transactions';
 
 
     public function __construct()
@@ -104,12 +107,20 @@ class DostavistaClient
         );
     }
 
-    public function fetchOrders(array $data): array {
+    public function fetchOrders(
+        Carbon $dateFrom,
+        Carbon $dateTo,
+        ?int $nextPageId = null
+    ): array {
         /** @phpstan-ignore-next-line */
         return $this->makeRequest(
             'POST',
-            self::URI_V1_CREATE_COURIER,
-            $data
+            self::URI_V1_ORDERS,
+            [
+                'updated_datetime_from' => $dateFrom->toAtomString(),
+                'updated_datetime_till' => $dateTo->toAtomString(),
+                'next_page_id' => $nextPageId,
+       ]
         );
     }
 
@@ -121,6 +132,23 @@ class DostavistaClient
             [
                 "offset" => $data["offset"] ?? null,
                 "limit" => $data["limit"] ?? null,
+            ]
+        );
+    }
+
+    public function fetchTransactions(
+        Carbon $dateFrom,
+        Carbon $dateTo,
+        ?int $nextPageId = null
+    ): array {
+        /** @phpstan-ignore-next-line */
+        return $this->makeRequest(
+            'POST',
+            self::URI_V1_TRANSACTIONS,
+            [
+                'updated_datetime_from' => $dateFrom->toAtomString(),
+                'updated_datetime_till' => $dateTo->toAtomString(),
+                'next_page_id' => $nextPageId,
             ]
         );
     }

@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums\Orders;
 
-enum Status: string
+enum OrderStatus: string
 {
     case COMPLETED = 'completed';
 }

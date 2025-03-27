@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\CourierRegistrationStatusEnum;
-use App\Models\Enums\Couriers\Status;
+use App\Models\Enums\Couriers\CourierStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name - Имя курьера
  * @property string $surname - Фамилия курьера
  * @property string $middle_name - Отчество курьера
- * @property Status $status - Статус курьера
+ * @property CourierStatus $status - Статус курьера
  * @property Carbon $ban_end_datetime- Email курьера
  * @property string $phone - Телефон
  * @property Carbon $registered_datetime - Дата и время регистрации курьера
