@@ -77,9 +77,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('courier_id')
-                ->references('courier_id')
-                ->on('couriers');
         });
     }
 

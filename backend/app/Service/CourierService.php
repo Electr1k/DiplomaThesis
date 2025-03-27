@@ -30,9 +30,9 @@ readonly class CourierService
         CreateCourierJob::dispatch($courier);
     }
 
-    public function fetch(array $data): void
+    public function fetch(): void
     {
-        $couriers = $this->cabinetService->fetchCouriers($data);
+        $couriers = $this->cabinetService->fetchCouriers();
 
         foreach ($couriers['couriers'] as $courier) {
             $this->courierRepository->store($courier);

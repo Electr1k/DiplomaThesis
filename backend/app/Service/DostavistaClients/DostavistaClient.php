@@ -124,7 +124,7 @@ class DostavistaClient
         );
     }
 
-    public function fetchCouriers(array $data): array {
+    public function fetchCouriers(?array $data = null): array {
         /** @phpstan-ignore-next-line */
         return $this->makeRequest(
             'POST',
