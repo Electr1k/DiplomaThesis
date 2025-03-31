@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Enums\Transactions\TransactionStatus;
 use App\Models\Enums\Transactions\TransactionType;
 use Carbon\Carbon;
+use Database\Factories\TransactionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -25,6 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Transaction extends Model
 {
+    /** @use HasFactory<TransactionFactory> */
+    use HasFactory;
+
     protected $primaryKey = 'transaction_id';
 
     public $incrementing = false;
@@ -47,7 +52,6 @@ class Transaction extends Model
         'amount' => 'float',
         'partner_commission_amount' => 'float',
         'courier_payment_amount' => 'float',
-        'updated_datetime' => Carbon::class,
         'transaction_status' => TransactionStatus::class,
     ];
 }

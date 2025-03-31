@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Enums\Orders\PaymentMethod;
 use App\Models\Enums\Orders\OrderStatus;
 use Carbon\Carbon;
+use Database\Factories\OrderFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,6 +35,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    /** @use HasFactory<OrderFactory> */
+    use HasFactory;
+
     protected $primaryKey = 'order_id';
 
     public $incrementing = false;

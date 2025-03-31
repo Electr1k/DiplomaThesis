@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Enums\CourierRegistrationStatusEnum;
 use App\Models\Enums\Couriers\CourierStatus;
 use Carbon\Carbon;
+use Database\Factories\CourierFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,6 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Courier extends Model
 {
+    /** @use HasFactory<CourierFactory> */
+    use HasFactory;
+
     protected $primaryKey = 'courier_id';
 
     protected $fillable = [
@@ -45,7 +49,7 @@ class Courier extends Model
 
     protected $casts = [
         'date_of_birth' => 'date',
-        'status' => CourierRegistrationStatusEnum::class,
+        'status' => CourierStatus::class,
     ];
 
 }

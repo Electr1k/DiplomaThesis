@@ -4,6 +4,7 @@ use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CabinetController;
 use App\Http\Controllers\V1\CourierController;
 use App\Http\Controllers\V1\PermissionController;
+use App\Http\Controllers\V1\ReportController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use App\Models\Enums\Permissions\CourierPermissions;
@@ -65,6 +66,11 @@ Route::prefix('v1')->middleware('auth:api')
            dd( $orders->getAll()->first()->order_status);
 
             return response()->json($orders->getAll()->first()->toArray());
+        });
+
+        Route::prefix('/reports')->group(function () {
+            Route:://middleware('permission:'.CourierPermissions::READ->value)->
+            post('summary', [ReportController::class, 'indexSummary']);
         });
 
     });
