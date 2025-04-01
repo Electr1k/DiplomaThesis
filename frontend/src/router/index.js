@@ -27,7 +27,17 @@
     {
       path: '/users',
       name: 'users',
-      component: () => import('../pages/roles/IndexPage.vue')
+      component: () => import('../pages/users/IndexPage.vue')
+    },
+    {
+      path: '/users/:id/edit',
+      name: 'users-edit',
+      component: () => import('../pages/users/EditPage.vue')
+    },
+    {
+      path: '/users/store',
+      name: 'users-store',
+      component: () => import('../pages/users/CreatePage.vue')
     },
     {
       path: '/clients',

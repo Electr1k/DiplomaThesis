@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Роли</h3>
+      <h3>Пользователи</h3>
     </v-subheader>
     <br>
 
@@ -17,7 +17,7 @@
     <v-card>
       <v-data-table
         :headers="headers"
-        :items-per-page="10"
+        :items-per-page="15"
         :items="items"
         class="elevation-1"
       >
@@ -66,7 +66,7 @@
 import {$api} from "@/api";
 
 export default {
-  name: "RolesView",
+  name: "UsersIndexPage",
 
   data() {
     return {
@@ -77,9 +77,14 @@ export default {
           value: 'id',
         },
         {
-          text: 'Название',
+          text: 'Имя',
           sortable: false,
           value: 'name',
+        },
+        {
+          text: 'Роль',
+          sortable: false,
+          value: 'role.name',
         },
         {
           text: '',
@@ -93,7 +98,7 @@ export default {
 
   async created() {
     try {
-      const response = await $api.roles.index();
+      const response = await $api.users.index();
       if (response.data && response.data.data) {
         this.items = response.data.data
       }
@@ -108,14 +113,14 @@ export default {
     },
     async deleteItem(item) {
       try {
-        await $api.roles.delete(item.id)
-        this.$toast.success('Роль успешно удалена')
+        await $api.users.delete(item.id)
+        this.$toast.success('Сотрудник успешно удален')
       }
       catch(e){
         this.$toast.error(e.response.data.message)
       }
       finally {
-        const response = await $api.roles.index();
+        const response = await $api.users.index();
         if (response.data && response.data.data) {
           this.items = response.data.data
         }
@@ -124,12 +129,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.overlap-icon {
-  position: absolute;
-  top: -33px;
-  text-align: center;
-  padding-top: 12px;
-}
-</style>

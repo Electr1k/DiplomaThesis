@@ -24,8 +24,9 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'unique:users'],
-            'password' => ['nullable', 'string', 'max:255', 'min:8'],
+            'email' => ['nullable', 'email'],
+            'password' => ['nullable', 'string', 'max:255', 'min:8', 'required_with:password_confirmation', 'same:password_confirmation'],
+            'password_confirmation' => ['nullable', 'min:8', 'string', 'max:255'],
             'role_id' => ['nullable', 'integer', 'exists:roles,id'],
         ];
     }

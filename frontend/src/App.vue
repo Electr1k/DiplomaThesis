@@ -17,7 +17,7 @@ export default {
   name: "App",
   components: { Sidebar },
   data: () => ({
-    drawer: null,
+    drawer: true,
   }),
   methods: {},
 };
