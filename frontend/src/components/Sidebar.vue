@@ -17,13 +17,18 @@
     </v-img>
     <v-divider></v-divider>
     <v-list>
-      <v-list-item v-for="[icon, text] in links" :key="icon" link>
+      <v-list-item
+          v-for="(item, index) in links"
+          :key="index"
+          link
+          :to="{ name: item.route }"
+          active-class="primary--text"
+      >
         <v-list-item-icon>
-          <v-icon>{{ icon }}</v-icon>
+          <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
-
         <v-list-item-content>
-          <v-list-item-title>{{ text }}</v-list-item-title>
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -42,11 +47,11 @@ export default {
   data() {
     return {
       links: [
-        ["mdi-microsoft-windows", "Роли"],
-        ["mdi-account", "Сотрудники"],
-        ["mdi-clipboard-list-outline", "Клиенты"],
-        ["mdi-card-account-details-outline", "Отчеты"],
-        ["mdi-cog", "System Setting"],
+        { icon: "mdi-microsoft-windows", text: "Роли", route: "roles" },
+        { icon: "mdi-account", text: "Сотрудники", route: "users" },
+        { icon: "mdi-clipboard-list-outline", text: "Клиенты", route: "clients" },
+        { icon: "mdi-card-account-details-outline", text: "Отчеты", route: "reports" },
+        { icon: "mdi-cog", text: "System Setting", route: "settings" },
       ],
     };
   },
@@ -63,4 +68,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Стиль для активного пункта меню */
+.v-list-item--active {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+</style>

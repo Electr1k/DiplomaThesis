@@ -11,7 +11,7 @@ use App\Models\Enums\Permissions\CourierPermissions;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('v1')->middleware('auth:api')
+Route::prefix('v1')//->middleware('auth:api')
     ->group(function () {
         Route::prefix('auth')->group(function () {
             Route::post('login', [AuthController::class, 'login'])->withoutMiddleware('auth:api');
@@ -20,7 +20,7 @@ Route::prefix('v1')->middleware('auth:api')
         });
 
         Route:://middleware('permission:'.RolePermissions::READ->value)->
-        apiResource('permissions', PermissionController::class)->only(['index', 'show']);
+        apiResource('permissions', PermissionController::class)->only(['index', 'show'])->withoutMiddleware('auth:api');
 
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('roles', RoleController::class)->only(['index', 'show']);

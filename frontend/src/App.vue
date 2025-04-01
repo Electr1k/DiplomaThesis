@@ -11,11 +11,12 @@
 
 <script>
 import Sidebar from "./components/Sidebar";
+import './plugins/toastification'
+
 export default {
   name: "App",
   components: { Sidebar },
   data: () => ({
-    cards: ["Today", "Yesterday"],
     drawer: null,
   }),
   methods: {},
