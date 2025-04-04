@@ -53,6 +53,11 @@ Route::prefix('v1')//->middleware('auth:api')
         get('/couriers/registrations', [CourierController::class, 'registrations']);
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
+        get('/couriers/registrations/{registration}', [CourierController::class, 'registrationShow']);
+        Route:://middleware('permission:'.CourierPermissions::READ->value)->
+        post('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
+
+        Route:://middleware('permission:'.CourierPermissions::READ->value)->
         apiResource('couriers', CourierController::class)->only(['index', 'show']);
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->

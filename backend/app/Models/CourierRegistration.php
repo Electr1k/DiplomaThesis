@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\CourierRegistrationStatusEnum;
+use App\Models\Enums\Couriers\Citizenship;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +15,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property integer $courier_id - Идентификатор курьера в Достависта
  * @property string $name - Имя курьера
  * @property string $surname - Фамилия курьера
- * @property string $middlename - Отчество курьера
+ * @property string $middle_name - Отчество курьера
  * @property string $phone - Телефонный номер курьера
  * @property string $email- Email курьера
  * @property Date $date_of_birth - Дата рождения
+ * @property Citizenship $citizenship - Гражданство
  * @property integer $courier_partner_id - Идентификатор кабинета, которому пренадлежит курьер
  * @property CourierRegistrationStatusEnum $status - Внутренний статус регистрации курьера
  * @property string $passport_number - Серия и номер паспорта
@@ -27,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class CourierRegistration extends Model
 {
+
+    protected $primaryKey = 'id';
     protected $fillable = [
         'courier_id',
         'name',

@@ -55,6 +55,16 @@
       component: () => import('../pages/couriers/CreatePage.vue')
     },
     {
+      path: '/courier-registrations',
+      name: 'registrations',
+      component: () => import('../pages/registration/IndexPage.vue')
+    },
+    {
+      path: '/courier-registrations/:id',
+      name: 'registrations-edit',
+      component: () => import('../pages/registration/EditPage.vue')
+    },
+    {
       path: '/reports',
       name: 'reports',
       component: () => import('../pages/roles/IndexPage.vue')

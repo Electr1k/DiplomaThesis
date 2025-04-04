@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\CourierRegistration;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin CourierRegistration */
 class CourierRegistrationResource extends JsonResource
 {
     /**
@@ -27,8 +30,8 @@ class CourierRegistrationResource extends JsonResource
             'passport_number' => $this->passport_number,
             'status' => $this->status,
             'cabinet' => new CabinetResource($this->cabinet),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'created_at' => Carbon::parse($this->created_at)->format('d.m.Y'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('d.m.Y')
         ];
     }
 }

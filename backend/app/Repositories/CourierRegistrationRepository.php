@@ -23,4 +23,9 @@ class CourierRegistrationRepository
     {
         return CourierRegistration::query()->updateOrCreate(['phone' => $data['phone']], $data);
     }
+
+    public function update()
+    {
+
+    }
 }

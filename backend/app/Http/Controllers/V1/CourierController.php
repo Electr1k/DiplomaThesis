@@ -9,6 +9,7 @@ use App\Http\Requests\Couriers\CourierStoreRequest;
 use App\Http\Resources\CourierRegistrationResource;
 use App\Http\Resources\CourierResource;
 use App\Models\Courier;
+use App\Models\CourierRegistration;
 use App\Models\User;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
@@ -54,5 +55,20 @@ class CourierController extends Controller
     public function registrations(CourierRegistrationRepository $repository): AnonymousResourceCollection
     {
         return CourierRegistrationResource::collection($repository->getAll());
+    }
+
+    /**
+     * Получение выбранной регистрации курьера.
+     */
+    public function registrationShow(CourierRegistration $registration): CourierRegistrationResource
+    {
+        return new CourierRegistrationResource($registration);
+    }
+
+    public function registrationUpdate(CourierRegistration $registration, CourierStoreRequest $courier): CourierRegistrationResource
+    {
+        $registration->update($courier->validated());
+
+        return new CourierRegistrationResource($registration);
     }
 }

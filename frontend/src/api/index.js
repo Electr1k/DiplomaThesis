@@ -3,6 +3,7 @@ import RoleApi from "@/api/RoleApi";
 import UserApi from "@/api/UserApi";
 import CourierApi from "@/api/CourierApi";
 import CabinetApi from "@/api/CabinetApi";
+import RegistrationCourierApi from "@/api/RegistrationCourierApi";
 
 export const $api = {
   permissions: new PermissionApi(),
@@ -10,4 +11,5 @@ export const $api = {
   users: new UserApi(),
   couriers: new CourierApi(),
   cabinets: new CabinetApi(),
+  registrations: new RegistrationCourierApi(),
 }
