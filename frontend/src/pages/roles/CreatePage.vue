@@ -15,8 +15,8 @@ export default {
   },
   methods: {
     onSubmit () {
+      this.$toast.success('Роль успешно создана')
       this.$router.push({ name: 'roles' })
-      this.$toast.success(this.$t('saved'))
     }
   }
 }

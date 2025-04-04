@@ -12,7 +12,7 @@
 <script>
 import Sidebar from "./components/Sidebar";
 import './plugins/toastification'
-
+import './plugins/moment'
 export default {
   name: "App",
   components: { Sidebar },

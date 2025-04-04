@@ -1,9 +1,9 @@
 import BaseApi from './BaseApi'
 
-class RoleApi extends BaseApi {
+class UserApi extends BaseApi {
   constructor () {
     super({ name: 'users' })
   }
 }
 
-export default RoleApi
+export default UserApi

@@ -40,9 +40,19 @@
       component: () => import('../pages/users/CreatePage.vue')
     },
     {
-      path: '/clients',
-      name: 'clients',
-      component: () => import('../pages/roles/IndexPage.vue')
+      path: '/couriers',
+      name: 'couriers',
+      component: () => import('../pages/couriers/IndexPage.vue')
+    },
+    {
+      path: '/couriers/:id',
+      name: 'couriers-show',
+      component: () => import('../pages/couriers/ShowPage.vue')
+    },
+    {
+      path: '/couriers/store',
+      name: 'couriers-store',
+      component: () => import('../pages/couriers/CreatePage.vue')
     },
     {
       path: '/reports',
