@@ -2,10 +2,13 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Role;
+use App\Models\Cabinet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Cabinet
+ */
 class CabinetResource extends JsonResource
 {
     /**
