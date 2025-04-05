@@ -75,9 +75,9 @@
       component: () => import('../pages/cabinets/ShowPage.vue')
     },
     {
-      path: '/reports',
-      name: 'reports',
-      component: () => import('../pages/roles/IndexPage.vue')
+      path: '/reports/summary',
+      name: 'summary',
+      component: () => import('../pages/reports/summary/IndexPage.vue')
     },
 
   ]

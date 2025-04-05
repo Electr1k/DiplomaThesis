@@ -75,7 +75,7 @@ Route::prefix('v1')//->middleware('auth:api')
 
         Route::prefix('/reports')->group(function () {
             Route:://middleware('permission:'.CourierPermissions::READ->value)->
-            post('summary', [ReportController::class, 'indexSummary']);
+            get('summary', [ReportController::class, 'indexSummary']);
         });
 
     });

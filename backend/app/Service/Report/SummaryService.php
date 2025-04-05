@@ -43,8 +43,9 @@ readonly class SummaryService
             ->joinSub(
                 $this->getOrderSubQuery($toDate),
                 'orders', 'transactions.date', '=', 'orders.date', 'full'
-            );
-//dd($data->toSql());
+            )
+            ->orderByDesc('date');
+
         return $data->get()->toArray();
     }
 
