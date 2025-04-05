@@ -87,8 +87,7 @@ export default {
           value: 'role.name',
         },
         {
-          text: '',
-          value: 'actions',
+            value: 'actions',
           sortable: false,
         }
       ],

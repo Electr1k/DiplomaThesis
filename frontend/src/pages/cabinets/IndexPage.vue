@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Регистрации</h3>
+      <h3>Кабинеты партнеров</h3>
     </v-subheader>
     <br>
 
@@ -43,56 +43,41 @@
 import {$api} from "@/api";
 
 export default {
-  name: "RegistrationIndexPage",
+  name: "CabinetsIndexPage",
 
   data() {
     return {
       headers: [
         {
-          text: 'ID регистрации',
+          text: 'ID Кабинета партнера',
           sortable: false,
-          value: 'id',
+          value: 'courier_partner_id',
         },
         {
-          text: 'Дата регистрации',
+          text: 'Регион',
           sortable: false,
-          value: 'created_at',
+          value: 'region_name',
         },
         {
-          text: 'Статус',
+          text: 'Наименование юридического лица',
           sortable: false,
-          value: 'status',
+          value: 'legal_name',
         },
         {
-          text: 'Кабинет',
+          text: 'Тип транспорта',
           sortable: false,
-          value: 'cabinet.region_name',
+          value: 'vehicle_type_name',
         },
         {
-          text: 'Имя',
+          text: 'Процент комиссии',
           sortable: false,
-          value: 'name',
+          value: 'partner_commission_part',
         },
         {
-          text: 'Фамилия',
           sortable: false,
-          value: 'surname',
-        },
-        {
-          text: 'Отчество',
-          sortable: false,
-          value: 'middle_name',
-        },
-        {
-          text: 'Номер',
-          sortable: false,
-          value: 'phone',
+          value: 'actions'
         },
 
-        {
-          value: 'actions',
-          sortable: false,
-        }
       ],
       items: []
     }
@@ -100,7 +85,7 @@ export default {
 
   async created() {
     try {
-      const response = await $api.registrations.index();
+      const response = await $api.cabinets.index();
       if (response.data && response.data.data) {
         this.items = response.data.data
       }
@@ -111,7 +96,8 @@ export default {
 
   methods: {
     showItem(item) {
-      this.$router.push({ name: `${this.$route.name}-edit`, params: { id: item.id } })
+      console.log(`${this.$route.name}-show`)
+      this.$router.push({ name: `${this.$route.name}-show`, params: { id: item.courier_partner_id } })
     },
   }
 }

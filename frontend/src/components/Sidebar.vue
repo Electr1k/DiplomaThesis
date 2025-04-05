@@ -49,6 +49,7 @@ export default {
       links: [
         { icon: "mdi-microsoft-windows", text: "Роли", route: "roles" },
         { icon: "mdi-account", text: "Сотрудники", route: "users" },
+        { icon: "mdi-account", text: "Кабинеты партнеров", route: "cabinets" },
         { icon: "mdi-clipboard-list-outline", text: "Клиенты", route: "couriers" },
         { icon: "mdi-clipboard-list-outline", text: "Регистрации", route: "registrations" },
         { icon: "mdi-card-account-details-outline", text: "Отчеты", route: "reports" },

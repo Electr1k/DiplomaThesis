@@ -65,6 +65,16 @@
       component: () => import('../pages/registration/EditPage.vue')
     },
     {
+      path: '/cabinets',
+      name: 'cabinets',
+      component: () => import('../pages/cabinets/IndexPage.vue')
+    },
+    {
+      path: '/cabinets/:id',
+      name: 'cabinets-show',
+      component: () => import('../pages/cabinets/ShowPage.vue')
+    },
+    {
       path: '/reports',
       name: 'reports',
       component: () => import('../pages/roles/IndexPage.vue')

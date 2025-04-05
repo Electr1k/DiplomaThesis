@@ -82,7 +82,6 @@ export default {
           value: 'name',
         },
         {
-          text: '',
           value: 'actions',
           sortable: false,
         }

@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\CourierRegistration;
-use App\Models\Enums\CourierRegistrationStatusEnum;
+use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
 use App\Service\DostavistaClients\DostavistaClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;

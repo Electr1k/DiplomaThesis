@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Enums\CourierRegistrationStatusEnum;
 use App\Models\Enums\Couriers\Citizenship;
+use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Model;

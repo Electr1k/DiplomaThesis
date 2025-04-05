@@ -104,7 +104,6 @@ export default {
         },
 
         {
-          text: '',
           value: 'actions',
           sortable: false,
         }
