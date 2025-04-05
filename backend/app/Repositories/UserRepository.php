@@ -41,7 +41,7 @@ class UserRepository
     {
         $user->update($data);
 
-        isset($data['role_id']) && $user->assignRole($data['role_id']);
+        isset($data['role_id']) && $user->assignRole([$data['role_id']]);
 
         return $user;
     }

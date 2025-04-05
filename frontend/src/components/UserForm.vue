@@ -121,7 +121,7 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        role: null
+        role_id: null
       }),
       roles: [],
       showPassword: false,

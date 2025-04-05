@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Пользователи</h3>
-    </v-subheader>
+  <div>
+    <h3>Пользователи</h3>
     <br>
 
     <v-row>

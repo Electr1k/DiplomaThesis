@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Регистрации</h3>
-    </v-subheader>
+  <div>
+    <h3>Регистрации</h3>
     <br>
 
     <v-card>
@@ -57,36 +55,43 @@ export default {
           text: 'Дата регистрации',
           sortable: false,
           value: 'created_at',
+          align: 'center',
         },
         {
           text: 'Статус',
           sortable: false,
           value: 'status',
+          align: 'center',
         },
         {
           text: 'Кабинет',
           sortable: false,
           value: 'cabinet.region_name',
+          align: 'center',
         },
         {
           text: 'Имя',
           sortable: false,
           value: 'name',
+          align: 'center',
         },
         {
           text: 'Фамилия',
           sortable: false,
           value: 'surname',
+          align: 'center',
         },
         {
           text: 'Отчество',
           sortable: false,
           value: 'middle_name',
+          align: 'center',
         },
         {
           text: 'Номер',
           sortable: false,
           value: 'phone',
+          align: 'center',
         },
 
         {

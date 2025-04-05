@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Роли</h3>
-    </v-subheader>
+  <div>
+    <h3>Роли</h3>
     <br>
 
     <v-row>
@@ -10,6 +8,9 @@
         <v-btn
           color="primary"
           :to="{ name: `${this.$route.name}-store` }">Создать</v-btn>
+      </v-col>
+      <v-col md="4">
+        <SearchField v-model="search" @keydown.enter="updateSearch()" />
       </v-col>
     </v-row>
     <br>
@@ -64,10 +65,11 @@
 
 <script>
 import {$api} from "@/api";
+import SearchField from "@/components/SearchField.vue";
 
 export default {
   name: "RolesView",
-
+  components: { SearchField },
   data() {
     return {
       headers: [
@@ -86,7 +88,8 @@ export default {
           sortable: false,
         }
       ],
-      items: []
+      items: [],
+      search: ""
     }
   },
 
@@ -119,16 +122,13 @@ export default {
           this.items = response.data.data
         }
       }
+    },
+    async updateSearch(){
+      const response = await $api.roles.index(this.search);
+      if (response.data && response.data.data) {
+        this.items = response.data.data
+      }
     }
   }
 }
 </script>
-
-<style scoped>
-.overlap-icon {
-  position: absolute;
-  top: -33px;
-  text-align: center;
-  padding-top: 12px;
-}
-</style>

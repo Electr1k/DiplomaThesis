@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Кабинеты партнеров</h3>
-    </v-subheader>
+  <div>
+    <h3>Кабинеты партнеров</h3>
     <br>
 
     <v-card>
@@ -57,21 +55,25 @@ export default {
           text: 'Регион',
           sortable: false,
           value: 'region_name',
+          align: 'center',
         },
         {
           text: 'Наименование юридического лица',
           sortable: false,
           value: 'legal_name',
+          align: 'center',
         },
         {
           text: 'Тип транспорта',
           sortable: false,
           value: 'vehicle_type_name',
+          align: 'center',
         },
         {
           text: 'Процент комиссии',
           sortable: false,
           value: 'partner_commission_part',
+          align: 'center',
         },
         {
           sortable: false,
@@ -96,7 +98,6 @@ export default {
 
   methods: {
     showItem(item) {
-      console.log(`${this.$route.name}-show`)
       this.$router.push({ name: `${this.$route.name}-show`, params: { id: item.courier_partner_id } })
     },
   }

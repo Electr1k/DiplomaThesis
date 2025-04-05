@@ -113,24 +113,9 @@ export default {
           protein: 4.0,
           iron: '1%',
         },
-        // ... остальные элементы desserts
       ],
     }
   },
-  methods: {
-    onButtonClick(item) {
-      console.log('View clicked for:', item.name);
-      // Добавьте здесь логику обработки клика
-    }
-  }
 }
 </script>
 
-<style scoped>
-.overlap-icon {
-  position: absolute;
-  top: -33px;
-  text-align: center;
-  padding-top: 12px;
-}
-</style>

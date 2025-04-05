@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class RoleRepository
@@ -10,9 +11,13 @@ class RoleRepository
     /**
      * @return Collection<int, Role>
      */
-    public function getAll(): Collection
+    public function getAll(array $param): Collection
     {
-        return Role::all();
+        return Role::query()
+            ->when(isset($param['search']), function (Builder $query) use ($param) {
+                $query->where('name', 'ILIKE', '%'.$param['search'].'%');
+            })
+            ->get();
     }
 
     /**

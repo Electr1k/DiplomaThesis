@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Repositories\RoleRepository;
 use App\Service\RoleService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RoleController extends Controller
@@ -21,9 +22,9 @@ class RoleController extends Controller
     /**
      * Получение всех ролей.
      */
-    public function index(RoleRepository $repository): AnonymousResourceCollection
+    public function index(Request $request, RoleRepository $repository): AnonymousResourceCollection
     {
-        return RoleResource::collection($repository->getAll());
+        return RoleResource::collection($repository->getAll($request->query()));
     }
 
     /**

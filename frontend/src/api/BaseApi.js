@@ -13,8 +13,8 @@ class BaseApi {
     }
   }
 
-  index (config = {}) {
-    return axios.get(this.url.index(), config)
+  index (search = null) {
+    return axios.get(this.url.index(), search ? {params: {search: search}} : {})
   }
 
   get (id) {

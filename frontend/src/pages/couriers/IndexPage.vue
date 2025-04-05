@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-      <h3>Клиенты</h3>
-    </v-subheader>
+  <div>
+    <h3>Клиенты</h3>
     <br>
 
     <v-row>
@@ -65,44 +63,51 @@ export default {
         {
           text: 'Имя',
           sortable: false,
+          align: 'center',
           value: 'name',
         },
         {
           text: 'Фамилия',
           sortable: false,
+          align: 'center',
           value: 'surname',
         },
         {
           text: 'Отчество',
           sortable: false,
+          align: 'center',
           value: 'middle_name',
         },
         {
           text: 'Номер',
           sortable: false,
+          align: 'center',
           value: 'phone',
         },
         {
           text: 'Количество заказов',
           sortable: false,
+          align: 'center',
           value: 'orders_completed_count',
         },
         {
           text: 'Дата регистрации',
           sortable: false,
+          align: 'center',
           value: 'registered_datetime',
         },
         {
           text: 'Дата первого заказа',
           sortable: false,
+          align: 'center',
           value: 'first_order_datetime',
         },
         {
           text: 'Дата последнего заказа',
           sortable: false,
+          align: 'center',
           value: 'last_order_datetime',
         },
-
         {
           value: 'actions',
           sortable: false,
