@@ -65,10 +65,21 @@ class CourierController extends Controller
         return new CourierRegistrationResource($registration);
     }
 
+    /**
+     * Обновление данных регистрации курьера.
+     */
     public function registrationUpdate(CourierRegistration $registration, CourierStoreRequest $courier): CourierRegistrationResource
     {
         $registration->update($courier->validated());
 
         return new CourierRegistrationResource($registration);
+    }
+
+    /**
+     * Получение неактивных курьеров.
+     */
+    public function indexInactive(CourierRepository $repository): AnonymousResourceCollection
+    {
+        return CourierResource::collection($repository->getInactive());
     }
 }

@@ -45,6 +45,11 @@
       component: () => import('../pages/couriers/IndexPage.vue')
     },
     {
+      path: '/inactive-couriers',
+      name: 'inactive-couriers',
+      component: () => import('../pages/inactive_couriers/IndexPage.vue')
+    },
+    {
       path: '/couriers/:id',
       name: 'couriers-show',
       component: () => import('../pages/couriers/ShowPage.vue')

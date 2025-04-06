@@ -64,6 +64,9 @@ Route::prefix('v1')//->middleware('auth:api')
         apiResource('couriers', CourierController::class)->only(['store']);
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
+        get('inactive-couriers', [CourierController::class, 'indexInactive']);
+
+        Route:://middleware('permission:'.CourierPermissions::READ->value)->
         apiResource('cabinets', CabinetController::class)->only(['index', 'show']);
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->

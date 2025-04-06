@@ -50,6 +50,7 @@ export default {
         { icon: "mdi-certificate", text: "Кабинеты партнеров", route: "cabinets" },
         { icon: "mdi-card-account-details-outline", text: "Клиенты", route: "couriers" },
         { icon: "mdi-clipboard-list-outline", text: "Регистрации", route: "registrations" },
+        { icon: "mdi-account-minus-outline", text: "Неактивные клиенты", route: "inactive-couriers" },
         { icon: "mdi-book-open-variant", text: "Сводный отчет", route: "summary" },
       ],
     };
