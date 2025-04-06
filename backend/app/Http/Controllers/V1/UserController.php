@@ -12,7 +12,10 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Service\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -59,4 +62,24 @@ class UserController extends Controller
         return response()->json(['status' => $this->userService->destroy($user)]);
     }
 
+    public function getUserByToken(): UserResource|JsonResponse
+    {
+        try {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+        } catch (JWTException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid token'
+            ], 401);
+        }
+
+        // Успешная аутентификация - возвращаем данные пользователя
+        return new UserResource($user);
+    }
 }

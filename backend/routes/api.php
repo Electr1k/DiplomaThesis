@@ -34,6 +34,8 @@ Route::prefix('v1')//->middleware('auth:api')
         Route:://middleware('permission:'.RolePermissions::STORE->value)->
         apiResource('roles', RoleController::class)->only(['destroy']);
 
+        Route::get('users/get-by-token', [UserController::class, 'getUserByToken']);
+
         Route:://middleware('permission:'.RolePermissions::READ->value)->
         apiResource('users', UserController::class)->only(['index', 'show']);
 

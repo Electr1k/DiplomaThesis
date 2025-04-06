@@ -121,6 +121,7 @@ export default {
     },
     async submit() {
       this.loading = true
+      console.log(this.form)
 
       this.modelId
         ? await this.form.put($api.roles.url.update(this.modelId))
