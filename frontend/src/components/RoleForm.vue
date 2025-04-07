@@ -16,7 +16,7 @@
               <v-text-field
                 v-model="form.name"
                 :error-messages="errors.name"
-                label="Название роли *"
+                label="Название роли"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
@@ -56,7 +56,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn type="submit" color="primary" :loading="form.busy">
+          <v-btn type="submit" color="primary" :loading="loading">
             Сохранить
           </v-btn>
           <v-btn @click="$router.go(-1)">Отмена</v-btn>
@@ -119,15 +119,19 @@ export default {
         this.loading = false
       }
     },
+    error(error) {
+      this.loading = false
+      this.$toast.error(error.response.data.message)
+    },
     async submit() {
       this.loading = true
       console.log(this.form)
 
       this.modelId
-        ? await this.form.put($api.roles.url.update(this.modelId))
+        ? await $api.roles.update(this.modelId, this.form.data())
           .then(() => this.$emit('submit'))
           .catch((error) => this.error(error))
-        : await this.form.post($api.roles.url.store())
+        : await $api.roles.store(this.form.data())
           .then(() => this.$emit('submit'))
           .catch((error) => this.error(error))
 

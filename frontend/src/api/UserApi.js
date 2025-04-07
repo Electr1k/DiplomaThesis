@@ -7,8 +7,14 @@ class UserApi extends BaseApi {
     this.url.getByToken = () => `${this.apiUrl}/users/get-by-token`
   }
 
-  getProfileByToken () {
-    return axios.get(this.url.getByToken(), this.config)
+  async getProfileByToken () {
+    try {
+      return await axios.get(this.url.getByToken(), this.getConfig())
+    }
+    catch (e) {
+      if (e.response.status === 401) await this.refreshToken()
+      else throw e
+    }
   }
 
 }

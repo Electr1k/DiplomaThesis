@@ -15,7 +15,7 @@ Route::prefix('v1')//->middleware('auth:api')
     ->group(function () {
         Route::prefix('auth')->group(function () {
             Route::post('login', [AuthController::class, 'login'])->withoutMiddleware('auth:api');
-            Route::post('refresh', [AuthController::class, 'refresh'])->withoutMiddleware('auth:api');
+            Route::get('refresh', [AuthController::class, 'refresh'])->withoutMiddleware('auth:api');
             Route::get('logout', [AuthController::class, 'logout']);
         });
 
@@ -57,7 +57,7 @@ Route::prefix('v1')//->middleware('auth:api')
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
         get('/couriers/registrations/{registration}', [CourierController::class, 'registrationShow']);
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
-        post('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
+        put('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
         apiResource('couriers', CourierController::class)->only(['index', 'show']);

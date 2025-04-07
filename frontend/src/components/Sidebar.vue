@@ -10,7 +10,7 @@
               aspect-ratio="30"
           />
         </v-avatar>
-        <h2 class="black--text">Current user</h2>
+        <h2 class="black--text">{{ this.user_name }}</h2>
       </div>
     </v-img>
     <v-divider></v-divider>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import {$api} from "@/api";
+
 export default {
   name: "TheSidebar",
   props: {
@@ -44,6 +46,7 @@ export default {
   },
   data() {
     return {
+      user_name: '',
       links: [
         { icon: "mdi-security", text: "Роли", route: "roles" },
         { icon: "mdi-account-box", text: "Сотрудники", route: "users" },
@@ -54,6 +57,20 @@ export default {
         { icon: "mdi-book-open-variant", text: "Сводный отчет", route: "summary" },
       ],
     };
+  },
+  async created() {
+    await this.init()
+  },
+  methods: {
+    async init() {
+      try {
+        const user = await $api.users.getProfileByToken()
+
+        this.user_name = user.data.data.name
+      } catch (error) {
+        console.error('Ошибка загрузки:', error)
+      }
+    }
   },
   computed: {
     internalDrawer: {

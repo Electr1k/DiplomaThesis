@@ -89,7 +89,7 @@
             <v-col cols="12" sm="6" md="6" xl="6">
               <form-date-input
                 v-model="form.date_of_birth"
-                :label="'Дата рождения*'"
+                :label="'Дата рождения'"
                 :error-messages="form.errors.get(`date_of_birth`)"
               />
             </v-col>
@@ -144,9 +144,9 @@
           </v-row>
 
           <v-card-actions md="6">
-            <v-btn v-if="modelId" type="submit" color="primary" :loading="form.busy">Обновить</v-btn>
+            <v-btn v-if="modelId" type="submit" color="primary" :loading="loading">Обновить</v-btn>
 
-            <v-btn v-else type="submit" color="primary" :loading="form.busy">Зарегистрировать</v-btn>
+            <v-btn v-else type="submit" color="primary" :loading="loading">Зарегистрировать</v-btn>
 
             <v-btn @click="$router.go(-1)">Отмена</v-btn>
           </v-card-actions>
@@ -241,10 +241,10 @@ export default {
       this.loading = true
 
       this.modelId
-          ? await this.form.post($api.registrations.url.update(this.modelId))
+          ? await $api.registrations.update(this.modelId, this.form.data())
               .then(() => this.$emit('submit'))
               .catch((error) => this.error(error))
-          : await this.form.post($api.couriers.url.store())
+          : await $api.couriers.store(this.form.data())
               .then(() => this.$emit('submit'))
               .catch((error) => this.error(error))
 

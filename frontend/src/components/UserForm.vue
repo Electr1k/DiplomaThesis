@@ -90,7 +90,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn type="submit" color="primary" :loading="form.busy">
+          <v-btn type="submit" color="primary" :loading="loading">
             Сохранить
           </v-btn>
           <v-btn @click="$router.go(-1)">Отмена</v-btn>
@@ -165,10 +165,10 @@ export default {
       this.loading = true
 
       this.modelId
-        ? await this.form.put($api.users.url.update(this.modelId))
+        ? await $api.users.update(this.modelId, this.form.data())
           .then(() => this.$emit('submit'))
           .catch((error) => this.error(error))
-        : await this.form.post($api.users.url.store())
+        : await $api.users.store(this.form.data())
           .then(() => this.$emit('submit'))
           .catch((error) => this.error(error))
 

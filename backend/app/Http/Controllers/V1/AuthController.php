@@ -44,7 +44,7 @@ class AuthController extends Controller
             'status' => 'success',
             'user' => Auth::user(),
             'authorisation' => [
-                'token' => Auth::refresh(),
+                'token' => auth('api')->refresh(),
                 'type' => 'bearer',
             ]
         ]);
