@@ -100,7 +100,7 @@ export default {
         this.items = response.data.data
       }
     } catch (e) {
-      this.$toast.error('Произошла ошибка:', e.message);
+      this.$toast.error(e.message);
     }
   },
 
@@ -114,7 +114,7 @@ export default {
         this.$toast.success('Роль успешно удалена')
       }
       catch(e){
-        this.$toast.error(e.response.data.message)
+        this.$toast.error(e.message);
       }
       finally {
         const response = await $api.roles.index();
@@ -124,9 +124,14 @@ export default {
       }
     },
     async updateSearch(){
-      const response = await $api.roles.index(this.search);
-      if (response.data && response.data.data) {
-        this.items = response.data.data
+      try {
+        const response = await $api.roles.index(this.search);
+        if (response.data && response.data.data) {
+          this.items = response.data.data
+        }
+      }
+      catch (e) {
+        this.$toast.error(e.message);
       }
     }
   }

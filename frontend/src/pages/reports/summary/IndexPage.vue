@@ -85,7 +85,7 @@ export default {
         this.items = response.data.data
       }
     } catch (e) {
-      this.$toast.error('Произошла ошибка:', e.message);
+      this.$toast.error(e.message);
     }
   },
 }

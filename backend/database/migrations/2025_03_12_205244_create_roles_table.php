@@ -28,7 +28,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('role_id')
-                ->constrained('roles', 'id');
+                ->constrained('roles', 'id')->onDelete('cascade');
 
             $table->string('code');
             $table->foreign('code')->references('code')->on('permissions');

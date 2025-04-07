@@ -235,7 +235,7 @@ export default {
     },
     error(error) {
       this.loading = false
-      this.$toast.error(error.response.data.message)
+      this.$toast.error(error.message)
     },
     async submit() {
       this.loading = true

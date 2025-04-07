@@ -22,12 +22,23 @@ class BaseApi {
     }
   }
 
+  async checkStatusResponse(error){
+    switch (error.response.status) {
+      case 401:
+        await this.refreshToken()
+        break
+      case 403:
+        throw new Error('У вас недостаточно прав')
+      default:
+        throw new Error(error.response.data.message ?? 'Произошла ошибка')
+    }
+  }
+
   async index(search = null) {
     try {
-      return axios.get(this.url.index(), {...this.getConfig(), params: search ? {search: search} : search})
+      return await axios.get(this.url.index(), {...this.getConfig(), params: search ? {search: search} : search})
     } catch (e) {
-      if (e.response.status === 401) await this.refreshToken()
-      else throw e
+      await this.checkStatusResponse(e)
     }
   }
 
@@ -35,8 +46,7 @@ class BaseApi {
     try {
       return axios.get(this.url.show(id), this.getConfig())
     } catch (e) {
-      if (e.response.status === 401) await this.refreshToken()
-      else throw e
+      await this.checkStatusResponse(e)
     }
   }
 
@@ -44,9 +54,7 @@ class BaseApi {
     try {
       return await axios.post(this.url.store(), data, this.getConfig())
     } catch (e) {
-      if (e.response.status === 401) await this.refreshToken()
-    else
-      throw e
+      await this.checkStatusResponse(e)
     }
   }
 
@@ -54,8 +62,7 @@ class BaseApi {
     try {
       return await axios.put(this.url.update(id), data, this.getConfig())
     } catch (e) {
-      if (e.response.status === 401) await this.refreshToken()
-      else throw e
+      await this.checkStatusResponse(e)
     }
   }
 
@@ -63,8 +70,7 @@ class BaseApi {
     try {
       return await axios.delete(this.url.delete(id), this.getConfig())
     } catch (e) {
-      if (e.response.status === 401) await this.refreshToken()
-      else throw e
+      await this.checkStatusResponse(e)
     }
   }
 
