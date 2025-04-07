@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Permission;
 use Illuminate\Support\Collection;
-use Spatie\Permission\Models\Permission;
 
 class PermissionRepository
 {

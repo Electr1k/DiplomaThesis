@@ -69,10 +69,15 @@ class BaseApi {
   }
 
   async refreshToken () {
-    const token = await $api.auth.refresh()
-    console.log(`new token ${token.data.authorisation.token}`)
-
-    localStorage.setItem('auth_token', token.data.authorisation.token);
+    try {
+      const token = await $api.auth.refresh()
+      console.log(`new token ${token.data.access_token}`)
+      localStorage.setItem('auth_token', token.data.access_token);
+    }
+    catch (e) {
+      console.log('Ошибка рефреша токена ' + e.message)
+      localStorage.removeItem('auth_token')
+    }
   }
 
 }

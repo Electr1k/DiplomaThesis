@@ -53,6 +53,11 @@ class User extends Model implements JWTSubject
         return $this->belongsTo(Role::class);
     }
 
+    public function hasPermission(string $permission): bool
+    {
+        return in_array($permission, $this->role->permissions()->pluck('permissions.code')->toArray());
+    }
+
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
