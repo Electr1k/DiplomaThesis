@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::query()->updateOrCreate([ 'name' => config('permission.super_admin.role_name') ]);
+        $role = Role::query()->updateOrCreate([ 'name' => 'Главный админ' ]);
 
         $role->permissions()->sync(Permission::all()->pluck('code')->toArray());
     }

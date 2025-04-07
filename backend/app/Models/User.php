@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Модель пользователя
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Model
+class User extends Model implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
@@ -50,5 +51,23 @@ class User extends Model
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [
+            'name' => $this->fullName(),
+            'role' => $this->role_id,
+        ];
+    }
+
+    public function fullName(): string
+    {
+        return trim("$this->surname $this->name $this->middle_name");
     }
 }

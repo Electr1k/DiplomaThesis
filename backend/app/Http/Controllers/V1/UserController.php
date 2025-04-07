@@ -12,9 +12,10 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Service\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
@@ -65,21 +66,35 @@ class UserController extends Controller
     public function getUserByToken(): UserResource|JsonResponse
     {
         try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $userId = $payload->get('sub');
+
+            if (!$user = User::find($userId)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'User not found'
+                    'message' => 'Пользователь не найден'
                 ], 404);
             }
+
+        } catch (TokenExpiredException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Токен истек'
+            ], 401);
+
+        } catch (TokenInvalidException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Неверный токен'
+            ], 401);
 
         } catch (JWTException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid token'
+                'message' => 'Токен отсутствует'
             ], 401);
         }
 
-        // Успешная аутентификация - возвращаем данные пользователя
         return new UserResource($user);
     }
 }

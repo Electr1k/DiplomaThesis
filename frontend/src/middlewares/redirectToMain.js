@@ -1,5 +1,4 @@
 export default function redirectToMain(next, router) {
-    console.log(router.redirect)
-    router.push({ name: 'dashboard'})
+    if (localStorage.getItem('auth_token')) router.push({ name: 'dashboard'})
     return next();
 }

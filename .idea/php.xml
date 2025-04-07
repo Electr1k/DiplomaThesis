@@ -57,7 +57,6 @@
       <path value="$PROJECT_DIR$/backend/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/backend/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/backend/vendor/lcobucci/clock" />
-      <path value="$PROJECT_DIR$/backend/vendor/spatie/laravel-permission" />
       <path value="$PROJECT_DIR$/backend/vendor/composer" />
       <path value="$PROJECT_DIR$/backend/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/backend/vendor/psr/simple-cache" />
@@ -84,7 +83,6 @@
       <path value="$PROJECT_DIR$/backend/vendor/league/config" />
       <path value="$PROJECT_DIR$/backend/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/backend/vendor/league/flysystem-local" />
-      <path value="$PROJECT_DIR$/backend/vendor/laravel/sanctum" />
       <path value="$PROJECT_DIR$/backend/vendor/laravel/serializable-closure" />
       <path value="$PROJECT_DIR$/backend/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/backend/vendor/laravel/sail" />
