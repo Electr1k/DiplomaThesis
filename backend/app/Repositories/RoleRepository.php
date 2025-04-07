@@ -28,9 +28,8 @@ class RoleRepository
     {
         $role = Role::query()->create([
             'name' => $data['name'],
-            'guard_name' => 'web'
         ]);
-        $role->syncPermissions($data['permissions']);
+        $role->permissions()->sync($data['permissions']);
         return $role;
     }
 
@@ -46,7 +45,7 @@ class RoleRepository
             'name' => $data['name'],
         ]);
 
-        $role->syncPermissions($data['permissions']);
+        $role->permissions()->sync($data['permissions']);
         return $role;
     }
 

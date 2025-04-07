@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\ReportController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use App\Models\Enums\Permissions\CourierPermissions;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 
@@ -73,7 +74,7 @@ Route::prefix('v1')//->middleware('auth:api')
 
         Route:://middleware('permission:'.CourierPermissions::READ->value)->
         get('/test', function (\App\Repositories\OrdersRepository $orders) {
-           dd( $orders->getAll()->first()->order_status);
+           dd( Role::query()->first()->permissions()->get());
 
             return response()->json($orders->getAll()->first()->toArray());
         });

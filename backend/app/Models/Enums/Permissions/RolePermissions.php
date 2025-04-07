@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Enums\Permissions;
 
 
-enum RolePermissions: string
+enum RolePermissions: string implements HasTitle
 {
     case READ = 'roles-read';
     case STORE = 'roles-store';

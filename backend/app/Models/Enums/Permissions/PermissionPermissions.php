@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Enums\Permissions;
 
 
-enum PermissionPermissions: string
+enum PermissionPermissions: string implements HasTitle
 {
     case READ = 'permissions-read';
 

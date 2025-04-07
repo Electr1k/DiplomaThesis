@@ -80,6 +80,16 @@ export default {
           value: 'name',
         },
         {
+          text: 'Фамилия',
+          sortable: false,
+          value: 'surname',
+        },
+        {
+          text: 'Отчество',
+          sortable: false,
+          value: 'middle_name',
+        },
+        {
           text: 'Роль',
           sortable: false,
           value: 'role.name',

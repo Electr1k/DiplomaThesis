@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Enums\Permissions;
 
 
-enum CourierPermissions: string
+enum CourierPermissions: string implements HasTitle
 {
     case READ = 'couriers-read';
     case STORE = 'couriers-store';

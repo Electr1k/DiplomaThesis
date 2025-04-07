@@ -12,7 +12,7 @@ class UserRepository
      */
     public function getAll(): Collection
     {
-        return User::all();
+        return User::query()->orderBy('id')->get();
     }
 
     /**
@@ -21,15 +21,7 @@ class UserRepository
      */
     public function store(array $data): User
     {
-        $user = User::query()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
-
-        $user->assignRole($data['role_id']);
-
-        return $user;
+        return User::query()->create($data);
     }
 
     /**
@@ -40,8 +32,6 @@ class UserRepository
     public function update(array $data, User $user): User
     {
         $user->update($data);
-
-        isset($data['role_id']) && $user->assignRole([$data['role_id']]);
 
         return $user;
     }

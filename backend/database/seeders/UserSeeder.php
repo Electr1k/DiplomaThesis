@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Enums\User\Gender;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Config;
@@ -21,15 +20,14 @@ class UserSeeder extends Seeder
 
         $superAdminUser = User::query()->where('email', $emailDefaultUser)->first();
         if (! $superAdminUser) {
-            $superAdminUser = User::query()->create([
+            User::query()->create([
                 'name' => 'Админ',
+                'surname' => 'Админов',
                 'email' => $emailDefaultUser,
+                'role_id' => $superAdminRole->id,
                 'password' => Hash::make('password'),
             ]);
         }
-
-        $superAdminUser->syncRoles($superAdminRole->name);
     }
-
 
 }

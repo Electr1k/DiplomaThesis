@@ -16,11 +16,38 @@
               <v-text-field
                 v-model="form.name"
                 :error-messages="errors.name"
-                label="ФИО"
+                label="Имя"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
                 dense
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" md="6" xl="6">
+              <v-text-field
+                  v-model="form.surname"
+                  :error-messages="errors.surname"
+                  label="Фамилия"
+                  :rules="[rules.required]"
+                  :disabled="loading"
+                  outlined
+                  dense
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" md="6" xl="6">
+              <v-text-field
+                  v-model="form.middle_name"
+                  :error-messages="errors.middle_name"
+                  label="Отчество"
+                  :disabled="loading"
+                  outlined
+                  dense
               />
             </v-col>
           </v-row>
@@ -118,6 +145,8 @@ export default {
       errors: {},
       form: new Form({
         name: '',
+        surname: '',
+        middle_name: null,
         email: '',
         password: '',
         password_confirmation: '',
@@ -145,6 +174,8 @@ export default {
           const userResponse = (await $api.users.get(this.modelId)).data.data
           this.form.fill({
             name: userResponse.name,
+            surname: userResponse.surname,
+            middle_name: userResponse.middle_name,
             email: userResponse.email,
             role_id: userResponse.role.id,
           })

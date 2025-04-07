@@ -2,61 +2,53 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class User extends Authenticatable implements JWTSubject
+/**
+ * Модель пользователя
+ * @property string $id - Идентификатор пользователя
+ * @property string $name - Имя
+ * @property string $surname - Фамилия
+ * @property string $middle_name - Отчество
+ * @property string $email - Email
+ * @property string $role_id - Идентификатор роли
+ * @property Role $role - Роль пользователя
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
+class User extends Model
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
-    use HasRoles;
+    use HasFactory;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
+        'surname',
+        'middle_name',
         'email',
         'password',
+        'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
-    public function getJWTIdentifier()
+    public function role(): BelongsTo
     {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
+        return $this->belongsTo(Role::class);
     }
 }

@@ -16,7 +16,7 @@ export default {
   methods: {
     onSubmit () {
       this.$toast.success('Сотрудник успешно создан')
-      this.$router.push({ name: 'couriers' })
+      this.$router.push({ name: 'users' })
     }
   }
 }

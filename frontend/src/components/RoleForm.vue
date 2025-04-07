@@ -48,7 +48,7 @@
               >
                 <td>{{ permission.name }}</td>
                 <td></td>
-                <td><v-checkbox :value="form.permissions.includes(permission.id)" @click="setPermission(permission.id)"/></td>
+                <td><v-checkbox :value="form.permissions.includes(permission.code)" @click="setPermission(permission.code)"/></td>
               </tr>
               </tbody>
             </template>
@@ -107,7 +107,7 @@ export default {
 
         if (this.modelId) {
           const roleResponse = (await $api.roles.get(this.modelId))
-          roleResponse.data.data.permissions = roleResponse.data.data.permissions.map((permission) => permission.id)
+          roleResponse.data.data.permissions = roleResponse.data.data.permissions.map((permission) => permission.code)
 
           this.form.fill(roleResponse.data.data)
         }
@@ -138,7 +138,7 @@ export default {
       this.loading = false
     },
     setAllPermissions () {
-      this.form.permissions = this.permissions.map((permission) => permission.id)
+      this.form.permissions = this.permissions.map((permission) => permission.code)
 
       if (!this.allPermissions) {
         this.form.permissions = []
