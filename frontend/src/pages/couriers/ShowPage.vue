@@ -5,7 +5,7 @@
 
       <v-card-text>
         <v-row>
-          <v-col md="6">
+          <v-col mr="6">
             <v-text-field
                 v-model="data.name"
                 label="Имя"
@@ -14,7 +14,7 @@
                 dense
             />
           </v-col>
-          <v-col md="6">
+          <v-col mr="6">
             <v-text-field
                 v-model="data.surname"
                 label="Фамилия"
@@ -68,20 +68,36 @@
           </v-col>
         </v-row>
 
+
+
         <v-row>
-          <v-col md="6">
+          <v-col md="4">
             <v-text-field
-                v-model="data.registered_datetime"
-                label="Дата регистрации"
+                v-model="data.sum_orders"
+                label="Сумма за заказы"
                 readonly
                 outlined
                 dense
+                class="green-text"
             />
           </v-col>
-          <v-col md="6">
+
+          <v-col md="4">
             <v-text-field
-                v-model="data.first_order_datetime"
-                label="Дата первого заказа"
+                v-model="data.sum_bonus"
+                label="Сумма бонусов"
+                readonly
+                outlined
+                dense
+                class="green-text"
+            />
+          </v-col>
+
+          <v-col md="4">
+            <v-text-field
+                v-model="data.sum_fine"
+                label="Сумма штрафов"
+                class="red-text"
                 readonly
                 outlined
                 dense
@@ -89,11 +105,32 @@
           </v-col>
         </v-row>
 
+        <v-divider class="mb-6"></v-divider>
+
         <v-row>
-          <v-col md="6">
+          <v-col md="4">
             <v-text-field
-                v-model="data.last_order_datetime"
-                label="Дата последнего заказа"
+              v-model="data.last_order_datetime"
+              label="Дата последнего заказа"
+              readonly
+              outlined
+              dense
+            />
+          </v-col>
+
+          <v-col md="4">
+            <v-text-field
+              v-model="data.first_order_datetime"
+              label="Дата первого заказа"
+              readonly
+              outlined
+              dense
+            />
+          </v-col>
+          <v-col md="4">
+            <v-text-field
+                v-model="data.registered_datetime"
+                label="Дата регистрации"
                 readonly
                 outlined
                 dense
@@ -138,3 +175,13 @@ export default {
   }
 }
 </script>
+<style>
+
+.green-text input {
+  color: green !important;
+}
+
+.red-text input {
+  color: red !important;
+}
+</style>

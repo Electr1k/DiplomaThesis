@@ -22,9 +22,9 @@ class RoleController extends Controller
     /**
      * Получение всех ролей.
      */
-    public function index(Request $request, RoleRepository $repository): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return RoleResource::collection($repository->getAll($request->query()));
+        return RoleResource::collection($this->service->index($request->query()));
     }
 
     /**

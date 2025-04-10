@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Service\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -26,9 +27,9 @@ class UserController extends Controller
     /**
      * Получение всех пользователей.
      */
-    public function index(UserRepository $repository): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return UserResource::collection($repository->getAll());
+        return UserResource::collection($this->userService->index($request->query()));
     }
 
     /**

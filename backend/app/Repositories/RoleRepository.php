@@ -11,11 +11,11 @@ class RoleRepository
     /**
      * @return Collection<int, Role>
      */
-    public function getAll(array $param): Collection
+    public function getAll(array $params): Collection
     {
         return Role::query()
-            ->when(isset($param['search']), function (Builder $query) use ($param) {
-                $query->where('name', 'ILIKE', '%'.$param['search'].'%');
+            ->when(isset($params['search']), function (Builder $query) use ($params) {
+                $query->where('name', 'ILIKE', '%'.$params['search'].'%');
             })
             ->get();
     }

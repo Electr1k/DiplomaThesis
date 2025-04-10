@@ -4,12 +4,18 @@ namespace App\Service;
 
 use App\Models\Role;
 use App\Repositories\RoleRepository;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 readonly class RoleService
 {
 
     public function __construct(private RoleRepository $roleRepository){}
+
+    public function index(array $params): Collection
+    {
+        return $this->roleRepository->getAll($params);
+    }
 
     public function store(array $data): Role
     {

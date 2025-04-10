@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Enums\Couriers\CourierStatus;
+use App\Models\Enums\Transactions\TransactionType;
+use App\Repositories\TransactionsRepository;
 use Carbon\Carbon;
 use Database\Factories\CourierFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Модель курьера
@@ -52,4 +55,35 @@ class Courier extends Model
         'status' => CourierStatus::class,
     ];
 
+    /**
+     * @return HasMany<Transaction,$this>
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'courier_id', 'courier_id');
+    }
+
+
+    public function getSumOrders(): float
+    {
+        return $this->transactions()
+            ->where('courier_id', $this->courier_id)
+            ->where('transaction_type', TransactionType::ORDER)
+            ->sum('amount');
+    }
+
+
+    public function getSumBonus(): float
+    {
+        return $this->transactions()
+            ->where('courier_id', $this->courier_id)
+            ->where('transaction_type', TransactionType::BONUS)
+            ->sum('amount');    }
+
+    public function getSumFine(): float
+    {
+        return $this->transactions()
+            ->where('courier_id', $this->courier_id)
+            ->where('transaction_type', TransactionType::FINE)
+            ->sum('amount');    }
 }

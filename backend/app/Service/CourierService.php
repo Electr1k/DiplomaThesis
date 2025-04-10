@@ -6,6 +6,7 @@ use App\Jobs\CreateCourierJob;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 readonly class CourierService
@@ -17,9 +18,14 @@ readonly class CourierService
         private DostavistaClient $cabinetService,
     ){}
 
-    public function getAll(): Collection
+    public function index(array $params): Collection
     {
-        return $this->courierRepository->getAll();
+        return $this->courierRepository->getAll($params);
+    }
+
+    public function indexInactive(array $params): Collection
+    {
+        return $this->courierRepository->getInactive($params);
     }
 
     public function store(array $data): void

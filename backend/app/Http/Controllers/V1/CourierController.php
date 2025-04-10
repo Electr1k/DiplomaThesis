@@ -6,15 +6,16 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Couriers\CourierStoreRequest;
+use App\Http\Resources\Courier\CourierIndexResource;
+use App\Http\Resources\Courier\CourierShowResource;
 use App\Http\Resources\CourierRegistrationResource;
-use App\Http\Resources\CourierResource;
 use App\Models\Courier;
 use App\Models\CourierRegistration;
-use App\Models\User;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\CourierService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CourierController extends Controller
@@ -25,17 +26,17 @@ class CourierController extends Controller
     /**
      * Получение всех курьеров.
      */
-    public function index(CourierRepository $repository): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return CourierResource::collection($repository->getAll());
+        return CourierIndexResource::collection($this->courierService->index($request->query()));
     }
 
     /**
      * Получение выбранного курьера.
      */
-    public function show(Courier $courier): CourierResource
+    public function show(Courier $courier): CourierShowResource
     {
-        return new CourierResource($courier);
+        return new CourierShowResource($courier);
     }
 
     /**
@@ -52,9 +53,9 @@ class CourierController extends Controller
     /**
      * Получение списка регистраций курьеров.
      */
-    public function registrations(CourierRegistrationRepository $repository): AnonymousResourceCollection
+    public function registrations(Request $request, CourierRegistrationRepository $repository): AnonymousResourceCollection
     {
-        return CourierRegistrationResource::collection($repository->getAll());
+        return CourierRegistrationResource::collection($repository->getAll($request->query()));
     }
 
     /**
@@ -78,8 +79,8 @@ class CourierController extends Controller
     /**
      * Получение неактивных курьеров.
      */
-    public function indexInactive(CourierRepository $repository): AnonymousResourceCollection
+    public function indexInactive(Request $request): AnonymousResourceCollection
     {
-        return CourierResource::collection($repository->getInactive());
+        return CourierIndexResource::collection($this->courierService->indexInactive($request->query()));
     }
 }

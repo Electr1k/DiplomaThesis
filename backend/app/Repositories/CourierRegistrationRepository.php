@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CourierRegistration;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CourierRegistrationRepository
@@ -10,9 +11,15 @@ class CourierRegistrationRepository
     /**
      * @return Collection<int, CourierRegistration>
      */
-    public function getAll(): Collection
+    public function getAll(array $params): Collection
     {
-        return CourierRegistration::all();
+        return CourierRegistration::query()
+            ->when(isset($params['search']), function (Builder $query) use ($params) {
+                $query->where('phone', 'ILIKE', '%'.$params['search'].'%')
+                    ->orWhere('surname', 'ILIKE', '%'.$params['search'].'%');
+            })
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     /**

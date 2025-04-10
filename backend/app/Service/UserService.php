@@ -4,10 +4,16 @@ namespace App\Service;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Collection;
 
 readonly class UserService
 {
     public function __construct(private UserRepository $userRepository){}
+
+    public function index(array $params): Collection
+    {
+        return $this->userRepository->getAll($params);
+    }
 
     public function store(array $data): User
     {

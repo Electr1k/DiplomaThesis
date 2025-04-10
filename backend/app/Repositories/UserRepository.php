@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class UserRepository
@@ -10,9 +11,16 @@ class UserRepository
     /**
      * @return Collection<int, User>
      */
-    public function getAll(): Collection
+    public function getAll(array $params): Collection
     {
-        return User::query()->orderBy('id')->get();
+        return User::query()
+            ->when(isset($params['search']), function (Builder $query) use ($params) {
+                $query->where('surname', 'ILIKE', '%'.$params['search'].'%');
+                $query->orWhere('name', 'ILIKE', '%'.$params['search'].'%');
+                $query->orWhere('email', 'ILIKE', '%'.$params['search'].'%');
+            })
+            ->orderBy('id')
+            ->get();
     }
 
     /**

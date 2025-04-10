@@ -5,27 +5,25 @@ declare(strict_types=1);
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Couriers\CourierStoreRequest;
 use App\Http\Resources\CabinetResource;
-use App\Http\Resources\CourierResource;
 use App\Models\Cabinet;
-use App\Models\User;
 use App\Repositories\CabinetRepository;
-use App\Repositories\CourierRepository;
 use App\Service\CabinetService;
-use App\Service\CourierService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CabinetController extends Controller
 {
 
+    public function __construct(private CabinetService $service)
+    {}
+
     /**
      * Получение всех кабинетов.
      */
-    public function index(CabinetRepository $repository): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return CabinetResource::collection($repository->getAll());
+        return CabinetResource::collection($this->service->index($request->query()));
     }
 
     /**

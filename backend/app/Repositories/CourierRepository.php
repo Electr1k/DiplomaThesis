@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Courier;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CourierRepository
@@ -10,18 +11,29 @@ class CourierRepository
     /**
      * @return Collection<int, Courier>
      */
-    public function getAll(): Collection
+    public function getAll(array $params): Collection
     {
-        return Courier::all();
+        return Courier::query()
+            ->when(isset($params['search']), function (Builder $query) use ($params) {
+                $query->where('phone', 'ILIKE', '%'.$params['search'].'%')
+                    ->orWhere('surname', 'ILIKE', '%'.$params['search'].'%');
+            })
+            ->get();
     }
 
     /**
      * @return Collection<int, Courier>
      */
-    public function getInactive(): Collection
+    public function getInactive(array $params): Collection
     {
         return Courier::query()
             ->where('last_order_datetime', '<=', now()->subDays(14))
+            ->when(isset($params['search']), function (Builder $query) use ($params) {
+                $query->where(function(Builder $query) use ($params) {
+                    $query->where('phone', 'ILIKE', '%'.$params['search'].'%')
+                        ->orWhere('surname', 'ILIKE', '%'.$params['search'].'%');
+                });
+            })
             ->orderByDesc('last_order_datetime')
             ->get();
     }

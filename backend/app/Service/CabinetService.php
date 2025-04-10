@@ -14,9 +14,9 @@ readonly class CabinetService
         private DostavistaClient $dostavistaClient
     ){}
 
-    public function getAll(): Collection
+    public function index(array $params): Collection
     {
-        return $this->cabinetRepository->getAll();
+        return $this->cabinetRepository->getAll($params);
     }
 
     public function fetch(): void

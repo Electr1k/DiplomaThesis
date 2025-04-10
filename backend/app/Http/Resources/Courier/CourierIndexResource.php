@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Courier;
 
 use App\Models\Courier;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @mixin Courier
  */
-class CourierResource extends JsonResource
+class CourierIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,7 +24,7 @@ class CourierResource extends JsonResource
             'name' => $this->name,
             'surname' => $this->surname,
             'middle_name' => $this->middle_name,
-            'status' => $this->status,
+            'status' => $this->status->title(),
             'ban_end_datetime' => $this->ban_end_datetime,
             'phone' => $this->hide_phone($this->phone),
             'registered_datetime' => Carbon::parse($this->registered_datetime)->format('d.m.Y'),

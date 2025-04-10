@@ -3,6 +3,13 @@
     <h3>Кабинеты партнеров</h3>
     <br>
 
+    <v-row>
+      <v-col md="4">
+        <SearchField v-model="search" @keydown.enter="updateSearch()" />
+      </v-col>
+    </v-row>
+    <br>
+
     <v-card>
       <v-data-table
         :headers="headers"
@@ -39,9 +46,11 @@
 
 <script>
 import {$api} from "@/api";
+import SearchField from "@/components/SearchField.vue";
 
 export default {
   name: "CabinetsIndexPage",
+  components: {SearchField},
 
   data() {
     return {
@@ -81,7 +90,8 @@ export default {
         },
 
       ],
-      items: []
+      items: [],
+      search: ""
     }
   },
 
@@ -100,6 +110,17 @@ export default {
     showItem(item) {
       this.$router.push({ name: `${this.$route.name}-show`, params: { id: item.courier_partner_id } })
     },
+    async updateSearch(){
+      try {
+        const response = await $api.cabinets.index(this.search);
+        if (response.data && response.data.data) {
+          this.items = response.data.data
+        }
+      }
+      catch (e) {
+        this.$toast.error(e.message);
+      }
+    }
   }
 }
 </script>
