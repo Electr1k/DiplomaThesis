@@ -68,7 +68,7 @@ tasks:
     desc: Запуск миграций
     cmds:
       - task: up
-      - docker compose exec app php artisan migrate
+      - docker compose exec app php artisan migrate --seed
 
   test:
     desc: Запуск тестов

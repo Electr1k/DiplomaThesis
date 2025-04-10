@@ -19,8 +19,7 @@ services:
             - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d
         ports:
-            - "80:80"
-            - "443:443"
+            - "8080:80"
         depends_on:
             - app
 
@@ -37,3 +36,15 @@ services:
         ports:
             - "${FORWARD_DB_PORT:-5432}:5432"
         restart: always
+
+    frontend:
+        build:
+            context: ../frontend
+            dockerfile: Dockerfile
+        container_name: diploma_frontend
+        volumes:
+            - ../frontend:/app
+        command: npm run serve
+        ports:
+            - "80:8080"
+            - "443:443"
