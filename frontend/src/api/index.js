@@ -7,6 +7,7 @@ import CabinetApi from "@/api/CabinetApi";
 import RegistrationCourierApi from "@/api/RegistrationCourierApi";
 import SummaryReportApi from "@/api/SummaryReportApi";
 import AuthApi from "@/api/AuthApi";
+import DashboardApi from "@/api/DashboardApi";
 
 export const $api = {
   permissions: new PermissionApi(),
@@ -18,4 +19,5 @@ export const $api = {
   cabinets: new CabinetApi(),
   registrations: new RegistrationCourierApi(),
   summaryReport: new SummaryReportApi(),
+  dashboard: new DashboardApi(),
 }

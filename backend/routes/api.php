@@ -86,6 +86,10 @@ Route::prefix('v1')
         Route::prefix('/reports')->group(function () {
             Route:://middleware('permission:'.CourierPermissions::READ->value)->
             get('summary', [ReportController::class, 'indexSummary']);
+
+            Route::prefix('/dashboard')->group(function () {
+                Route::get('/orders', [ReportController::class, 'dashboardOrders']);
+            });
         });
 
     });
