@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$router.push({ name: 'couriers' })
+      this.$router.push({ name: 'registrations' })
       this.$toast.success("Клиент добавлен в очередь на создание")
     }
   }

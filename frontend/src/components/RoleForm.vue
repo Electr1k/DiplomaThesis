@@ -16,7 +16,7 @@
               <v-text-field
                 v-model="form.name"
                 :error-messages="errors.name"
-                label="Название роли"
+                label="Название роли*"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined

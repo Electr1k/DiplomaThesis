@@ -16,7 +16,7 @@
               <v-text-field
                 v-model="form.name"
                 :error-messages="errors.name"
-                label="Имя"
+                label="Имя*"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
@@ -30,7 +30,7 @@
               <v-text-field
                   v-model="form.surname"
                   :error-messages="errors.surname"
-                  label="Фамилия"
+                  label="Фамилия*"
                   :rules="[rules.required]"
                   :disabled="loading"
                   outlined
@@ -57,7 +57,7 @@
               <v-text-field
                 v-model="form.email"
                 :error-messages="errors.email"
-                label="Email"
+                label="Email*"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
@@ -70,9 +70,10 @@
             v-model="form.role_id"
             chips
             :items="roles"
+            :rules="[rules.required]"
             item-text="name"
             item-value="id"
-            :label="'Роль'"
+            :label="'Роль*'"
             :error-messages="form.errors.get(`role_id`)"
           />
 

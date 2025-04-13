@@ -6,6 +6,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Couriers\CourierStoreRequest;
+use App\Http\Requests\Couriers\CourierUpdateRequest;
 use App\Http\Resources\Courier\CourierIndexResource;
 use App\Http\Resources\Courier\CourierShowResource;
 use App\Http\Resources\CourierRegistrationResource;
@@ -69,7 +70,7 @@ class CourierController extends Controller
     /**
      * Обновление данных регистрации курьера.
      */
-    public function registrationUpdate(CourierRegistration $registration, CourierStoreRequest $courier): CourierRegistrationResource
+    public function registrationUpdate(CourierRegistration $registration, CourierUpdateRequest $courier): CourierRegistrationResource
     {
         $registration->update($courier->validated());
 

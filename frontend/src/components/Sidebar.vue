@@ -1,7 +1,6 @@
 <template>
   <v-navigation-drawer v-model="internalDrawer" app>
     <v-img
-        height="140"
         class="pa-4"
     >
       <div class="text-center">
@@ -11,6 +10,7 @@
           />
         </v-avatar>
         <h2 class="black--text">{{ this.user_name }}</h2>
+        <v-btn text color="red" x-small @click="logout">Выйти</v-btn>
       </div>
     </v-img>
     <v-divider></v-divider>
@@ -21,6 +21,7 @@
           link
           :to="{ name: item.route }"
           active-class="primary--text"
+          :exact="item.route === 'dashboard'"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -35,6 +36,7 @@
 
 <script>
 import {$api} from "@/api";
+import router from "@/router";
 
 export default {
   name: "TheSidebar",
@@ -48,6 +50,7 @@ export default {
     return {
       user_name: '',
       links: [
+        { icon: "mdi-view-dashboard-outline", text: "Главная", route: "dashboard" },
         { icon: "mdi-security", text: "Роли", route: "roles" },
         { icon: "mdi-account-box", text: "Сотрудники", route: "users" },
         { icon: "mdi-certificate", text: "Кабинеты партнеров", route: "cabinets" },
@@ -65,11 +68,14 @@ export default {
     async init() {
       try {
         const user = await $api.users.getProfileByToken()
-
-        this.user_name = user.data.data.name
+        this.user_name = `${user.data.data.name} ${user.data.data.surname}`
       } catch (error) {
         console.error('Ошибка загрузки:', error)
       }
+    },
+    logout() {
+      localStorage.removeItem('auth_token')
+      router.push({ name: 'login'})
     }
   },
   computed: {

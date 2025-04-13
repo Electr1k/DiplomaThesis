@@ -4,24 +4,37 @@
       <h3>Главная</h3>
     </v-subheader>
     <br>
-    <v-col cols="12" >
+    <v-col cols="12">
       <v-card>
-        <v-card-title>Количество заказов за последний 10 дней</v-card-title>
+        <v-card-title>Количество заказов за последние 10 дней</v-card-title>
+
+          <v-sparkline
+              :value="orders"
+              :gradient="['#1feaea', '#ffd200', '#f72047',]"
+              :line-width="2"
+              :labels="labels"
+              padding="12"
+              stroke-linecap="round"
+              smooth
+              auto-draw
+              label-size="3"
+          ></v-sparkline>
+      </v-card>
+
+      <v-card class="mt-6">
+        <v-card-title>Количество новых клиентов</v-card-title>
 
         <v-sparkline
-          :value="orders"
-          :gradient="['#f72047', '#ffd200', '#1feaea']"
-          :line-width="2"
-          padding="8"
-          stroke-linecap="round"
-          smooth
-          auto-draw
-
-          show-labels
-
-          auto-draw-easing="cubic-bezier(0.4, 0, 0.2, 1)"
-        >
-        </v-sparkline>
+            :value="orders"
+            :gradient="['#1feaea', '#ffd200', '#f72047',]"
+            :line-width="2"
+            :labels="labels"
+            padding="12"
+            stroke-linecap="round"
+            smooth
+            auto-draw
+            label-size="3"
+        ></v-sparkline>
       </v-card>
     </v-col>
   </div>
@@ -34,21 +47,27 @@ export default {
   name: "DashboardView",
   data() {
     return {
-      orders: []
-    }
+      orders: [],
+      labels: [],
+    };
   },
-
   async created() {
     try {
       const response = await $api.dashboard.orders();
-      console.log(response)
-      if (response.data && response.data.data) {
-        this.orders = response.data.data.map((item) => item.count)
+      if (response.data?.data) {
+        this.orders = []
+        this.labels = []
+        response.data.data.map(item => {
+          this.orders.push(item.count)
+          const date = new Date(item.date);
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          this.labels.push(`${item.count} (${day}-${month})`)
+        });
       }
     } catch (e) {
       this.$toast.error(e.message);
     }
   },
-}
+};
 </script>
-

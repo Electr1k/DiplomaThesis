@@ -19,7 +19,8 @@
                   :items="courier_partners"
                   item-text="region_name"
                   item-value="courier_partner_id"
-                  :label="'Кабинет патнера'"
+                  :rules="[rules.required]"
+                  :label="'Кабинет патнера*'"
                   :error-messages="form.errors.get(`courier_partner_id`)"
               />
             </v-col>
@@ -27,7 +28,7 @@
               <v-text-field
                   v-model="form.phone"
                   :error-messages="form.errors.phone"
-                  label="Номер"
+                  label="Номер*"
                   :rules="[rules.required]"
                   :disabled="loading"
                   outlined
@@ -41,7 +42,7 @@
               <v-text-field
                 v-model="form.name"
                 :error-messages="form.errors.name"
-                label="Имя"
+                label="Имя*"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
@@ -52,7 +53,7 @@
               <v-text-field
                 v-model="form.surname"
                 :error-messages="form.errors.surname"
-                label="Фамилия"
+                label="Фамилия*"
                 :rules="[rules.required]"
                 :disabled="loading"
                 outlined
@@ -67,7 +68,6 @@
                 v-model="form.middle_name"
                 :error-messages="form.errors.middle_name"
                 label="Отчество"
-                :rules="[rules.required]"
                 :disabled="loading"
                 outlined
                 dense
@@ -98,9 +98,10 @@
                 v-model="form.citizenship"
                 chips
                 :items="citizenships"
+                :rules="[rules.required]"
                 item-text="name"
                 item-value="id"
-                :label="'Гражданство'"
+                :label="'Гражданство*'"
                 :error-messages="form.errors.get(`citizenship`)"
               />
             </v-col>
@@ -112,7 +113,6 @@
                 v-model="form.passport_number"
                 :error-messages="form.errors.passport_number"
                 label="Серия и номер паспорта"
-                :rules="[rules.required]"
                 :disabled="loading"
                 outlined
                 dense
@@ -186,6 +186,7 @@ export default {
         citizenship: '',
         passport_number: '',
       }),
+      base_phone: '',
       courier_partners: [],
       status: '',
       last_update: null,
@@ -225,6 +226,7 @@ export default {
           this.status = registration.data.data.status
           this.last_update = registration.data.data.updated_at
           this.form.fill(registration.data.data)
+          this.base_phone = registration.data.data.phone
         }
 
       } catch (e) {
@@ -241,7 +243,7 @@ export default {
       this.loading = true
 
       this.modelId
-          ? await $api.registrations.update(this.modelId, this.form.data())
+          ? await $api.registrations.update(this.modelId, { ...this.form.data(), phone: this.base_phone === this.form.data().phone ? undefined : this.form.data().phone})
               .then(() => this.$emit('submit'))
               .catch((error) => this.error(error))
           : await $api.couriers.store(this.form.data())
