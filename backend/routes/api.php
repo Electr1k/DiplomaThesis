@@ -82,6 +82,7 @@ Route::prefix('v1')
 
             Route::prefix('/dashboard')->group(function () {
                 Route::get('/orders', [ReportController::class, 'dashboardOrders']);
+                Route::get('/new-clients', [ReportController::class, 'dashboardNewClients']);
             });
         });
 
