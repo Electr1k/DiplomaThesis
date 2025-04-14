@@ -43,9 +43,9 @@ class UserController extends Controller
     /**
      * Создание пользователя.
      */
-    public function store(UserStoreRequest $role): UserResource
+    public function store(UserStoreRequest $request): UserResource
     {
-        return new UserResource($this->userService->store($role->validated()));
+        return new UserResource($this->userService->store($request->validated()));
     }
 
     /**

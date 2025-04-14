@@ -4,9 +4,10 @@
         class="pa-4"
     >
       <div class="text-center">
-        <v-avatar class="mb-4" color="grey darken-1" size="64">
+        <v-avatar class="mb-2" color="grey darken-1" size="90">
           <v-img
               aspect-ratio="30"
+              :src=this.image
           />
         </v-avatar>
         <h2 class="black--text">{{ this.user_name }}</h2>
@@ -49,6 +50,7 @@ export default {
   data() {
     return {
       user_name: '',
+      image: '',
       links: [
         { icon: "mdi-view-dashboard-outline", text: "Главная", route: "dashboard" },
         { icon: "mdi-security", text: "Роли", route: "roles" },
@@ -69,6 +71,7 @@ export default {
       try {
         const user = await $api.users.getProfileByToken()
         this.user_name = `${user.data.data.name} ${user.data.data.surname}`
+        this.image = user.data.data.image
       } catch (error) {
         console.error('Ошибка загрузки:', error)
       }

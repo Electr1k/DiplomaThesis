@@ -34,6 +34,10 @@ return new class extends Migration
             $table->string('password')
                 ->comment('Хешированный пароль');
 
+            $table->string('image')
+                ->nullable()
+                ->comment('Фото профиля');
+
             $table->foreignId('role_id')
                 ->comment('Идентификатор роли')
                 ->constrained('roles', 'id');

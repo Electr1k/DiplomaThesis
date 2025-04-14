@@ -30,6 +30,7 @@ class UserStoreRequest extends FormRequest
             'password' => ['required', 'string', 'max:255', 'min:8', 'required_with:password_confirmation', 'same:password_confirmation'],
             'password_confirmation' => ['required', 'min:8', 'string', 'max:255'],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 }

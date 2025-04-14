@@ -23,8 +23,7 @@ class CheckPermission
                     'message' => 'User not found'
                 ], 404);
             }
-//dump($permission);
-//            dd($user->role->permissions()->pluck('permissions.code')->toArray(), );
+
             if (! $user->hasPermission($permission)) {
                 return response()->json([
                     'status' => 'error',

@@ -50,17 +50,23 @@ class BaseApi {
     }
   }
 
-  async store(data) {
+  async store(data, headers) {
     try {
-      return await axios.post(this.url.store(), data, this.getConfig())
+      const config = this.getConfig()
+      if (headers) config.headers = {...config.headers, ...headers}
+
+      return await axios.post(this.url.store(), data, config)
     } catch (e) {
       await this.checkStatusResponse(e)
     }
   }
 
-  async update(id, data) {
+  async update(id, data, headers) {
     try {
-      return await axios.put(this.url.update(id), data, this.getConfig())
+      const config = this.getConfig()
+      if (headers) config.headers = {...config.headers, ...headers}
+
+      return await axios.put(this.url.update(id), data, config)
     } catch (e) {
       await this.checkStatusResponse(e)
     }

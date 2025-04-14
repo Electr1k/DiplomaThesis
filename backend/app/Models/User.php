@@ -18,6 +18,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $email - Email
  * @property string $role_id - Идентификатор роли
  * @property Role $role - Роль пользователя
+ * @property string $image - Фото профиля
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -34,6 +35,7 @@ class User extends Model implements JWTSubject
         'email',
         'password',
         'role_id',
+        'image'
     ];
 
 
@@ -66,13 +68,8 @@ class User extends Model implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [
-            'name' => $this->fullName(),
+            'name' => "$this->surname $this->name $this->middle_name",
             'role' => $this->role_id,
         ];
-    }
-
-    public function fullName(): string
-    {
-        return trim("$this->surname $this->name $this->middle_name");
     }
 }

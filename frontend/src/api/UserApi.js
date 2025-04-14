@@ -17,6 +17,19 @@ class UserApi extends BaseApi {
     }
   }
 
+  async update(id, data, headers) {
+    try {
+      const config = this.getConfig()
+      config.params = {...config.params, _method: 'PATCH'}
+      if (headers) config.headers = {...config.headers, ...headers}
+
+      console.log(config)
+      return await axios.post(this.url.update(id), data, config)
+    } catch (e) {
+      await this.checkStatusResponse(e)
+    }
+  }
+
 }
 
 export default UserApi

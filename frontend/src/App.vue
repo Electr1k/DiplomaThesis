@@ -29,7 +29,6 @@ export default {
     this ? this.showSidebar = !this?.$route?.meta.without_auth : null;
   },
   watch: {
-    // Добавляем вотчер для изменения маршрута
     '$route'(to) {
       this.showSidebar = !to.meta.without_auth
     }

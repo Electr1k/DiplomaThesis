@@ -2,8 +2,8 @@
   <div>
     <v-form @submit.prevent="submit">
       <v-card
-        :loading="loading"
-        :disabled="loading"
+          :loading="loading"
+          :disabled="loading"
       >
         <v-card-title class="display-1 mb-2">
           <span v-if="modelId">Изменение данных сотрудника</span>
@@ -11,8 +11,32 @@
         </v-card-title>
 
         <v-card-text>
+          <v-row class="flex">
+            <v-col md="4" align="center">
+              <v-img
+                  align="center"
+                  v-if="photoUrl"
+                  :src="photoUrl"
+                  max-height="300"
+                  max-width="300"
+                  contain
+                  class="mb-2 rounded-xl"
+              ></v-img>
+              <v-file-input
+                  v-model="form.photo"
+                  accept="image/*"
+                  prepend-icon="mdi-camera"
+                  label="Фото сотрудника"
+                  :error-messages="errors.photo"
+                  @change="handleFileUpload"
+                  outlined
+                  dense
+              ></v-file-input>
+            </v-col>
+          </v-row>
+
           <v-row>
-            <v-col cols="12" sm="6" md="6" xl="6">
+            <v-col md="6">
               <v-text-field
                 v-model="form.name"
                 :error-messages="errors.name"
@@ -26,7 +50,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6" md="6" xl="6">
+            <v-col md="6">
               <v-text-field
                   v-model="form.surname"
                   :error-messages="errors.surname"
@@ -40,7 +64,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6" md="6" xl="6">
+            <v-col md="6">
               <v-text-field
                   v-model="form.middle_name"
                   :error-messages="errors.middle_name"
@@ -53,7 +77,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6" md="6" xl="6">
+            <v-col md="6">
               <v-text-field
                 v-model="form.email"
                 :error-messages="errors.email"
@@ -151,8 +175,10 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        role_id: null
+        role_id: null,
+        photo: null // Добавлено поле для фото
       }),
+      photoUrl: null, // URL для предпросмотра фото
       roles: [],
       showPassword: false,
       rules: {
@@ -180,6 +206,11 @@ export default {
             email: userResponse.email,
             role_id: userResponse.role.id,
           })
+
+          // Если у пользователя уже есть фото, загружаем его для предпросмотра
+          if (userResponse.image) {
+            this.photoUrl = userResponse.image
+          }
         }
 
       } catch (error) {
@@ -189,22 +220,54 @@ export default {
         this.loading = false
       }
     },
+
+    // Обработка загрузки файла
+    handleFileUpload(file) {
+      if (file) {
+        // Создаем URL для предпросмотра
+        this.photoUrl = URL.createObjectURL(file)
+      } else {
+        this.photoUrl = null
+      }
+    },
+
     error(error) {
       this.loading = false
       this.$toast.error(error.message)
     },
+
     async submit() {
       this.loading = true
 
-      this.modelId
-        ? await $api.users.update(this.modelId, this.form.data())
-          .then(() => this.$emit('submit'))
-          .catch((error) => this.error(error))
-        : await $api.users.store(this.form.data())
-          .then(() => this.$emit('submit'))
-          .catch((error) => this.error(error))
+      try {
+        // Создаем FormData для отправки файла
+        const formData = new FormData()
 
-      this.loading = false
+        // Добавляем все поля формы в FormData
+        Object.keys(this.form.data()).forEach(key => {
+          if (key === 'photo' && this.form.photo) {
+            formData.append('photo', this.form.photo)
+          } else if (this.form[key] !== null && this.form[key] !== undefined) {
+            formData.append(key, this.form[key])
+          }
+        })
+
+        if (this.modelId) {
+          await $api.users.update(this.modelId, formData, {
+              'Content-Type': 'multipart/form-data'
+          })
+        } else {
+          await $api.users.store(formData, {
+            'Content-Type': 'multipart/form-data'
+          })
+        }
+
+        this.$emit('submit')
+      } catch (error) {
+        this.error(error)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
