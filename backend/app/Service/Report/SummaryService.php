@@ -2,13 +2,13 @@
 
 namespace App\Service\Report;
 
-use App\Models\Courier;
 use App\Models\Enums\Transactions\TransactionStatus;
 use App\Models\Enums\Transactions\TransactionType;
 use App\Models\Order;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 readonly class SummaryService
 {
@@ -26,7 +26,7 @@ readonly class SummaryService
             default => fn (string $dateColumn) => "to_char($dateColumn, 'IYYYIW')::integer",
         };
 
-        $data = DB::query()
+        $query = DB::query()
             ->select(
                 DB::raw('coalesce(transactions.date, orders.date) as date'),
                 'orders_amount',
@@ -46,7 +46,8 @@ readonly class SummaryService
             )
             ->orderByDesc('date');
 
-        return $data->get()->toArray();
+        Log::info($query->toSql());
+        return $query->get()->toArray();
     }
 
     private function getTransactionSubQuery(callable $toDate): Builder

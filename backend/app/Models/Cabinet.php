@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Database\Factories\CabinetFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Cabinet extends Model
 {
+    /** @use HasFactory<CabinetFactory> */
+    use HasFactory;
     protected $primaryKey = 'courier_partner_id';
 
     public $incrementing = false;

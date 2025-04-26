@@ -40,19 +40,4 @@ class CourierShowResource extends JsonResource
         ];
     }
 
-    private function hide_phone(string $value): string
-    {
-        if ($value[0] != '+') {
-            $value = '+' . $value;
-        }
-
-        if ($value[1] != '8') {
-            $value[1] = '7';
-        }
-
-        $phoneNumber = $value;
-        return substr($value, 0, 2) . '(' .
-            substr($phoneNumber, 2, 3) . ')***-**-' .
-            substr($phoneNumber, 10, 2);
-    }
 }

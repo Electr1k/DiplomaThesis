@@ -78,12 +78,14 @@ class Courier extends Model
         return $this->transactions()
             ->where('courier_id', $this->courier_id)
             ->where('transaction_type', TransactionType::BONUS)
-            ->sum('amount');    }
+            ->sum('amount');
+    }
 
     public function getSumFine(): float
     {
         return $this->transactions()
             ->where('courier_id', $this->courier_id)
             ->where('transaction_type', TransactionType::FINE)
-            ->sum('amount');    }
+            ->sum('amount');
+    }
 }
