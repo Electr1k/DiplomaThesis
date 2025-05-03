@@ -18,9 +18,18 @@
     <v-card>
       <v-data-table
         :headers="headers"
-        :items-per-page="10"
+        :items-per-page="15"
         :items="items"
+        :loading="loading"
+        :footer-props="{
+          'items-per-page-text': 'Строк на странице:',
+          'items-per-page-options': [10, 25, 50, -1],
+          'items-per-page-all-text': 'Все',
+          'page-text': '{0}-{1} из {2}'
+        }"
         class="elevation-1"
+        loading-text="Загрузка..."
+        no-data-text="Ничего не найдено"
       >
         <template v-for="(_, slot) in $scopedSlots" v-slot:[slot]="scope">
           <slot :name="slot" v-bind="scope"/>
@@ -89,12 +98,14 @@ export default {
         }
       ],
       items: [],
-      search: ""
+      search: "",
+      loading: true
     }
   },
 
   async created() {
     try {
+      this.loading = true
       const response = await $api.roles.index();
       if (response.data && response.data.data) {
         this.items = response.data.data
@@ -102,6 +113,7 @@ export default {
     } catch (e) {
       this.$toast.error(e.message);
     }
+    this.loading = false
   },
 
   methods: {
@@ -125,6 +137,7 @@ export default {
     },
     async updateSearch(){
       try {
+        this.loading = true
         const response = await $api.roles.index(this.search);
         if (response.data && response.data.data) {
           this.items = response.data.data
@@ -133,6 +146,7 @@ export default {
       catch (e) {
         this.$toast.error(e.message);
       }
+      this.loading = false
     }
   }
 }
