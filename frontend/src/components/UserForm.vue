@@ -6,7 +6,7 @@
           :disabled="loading"
       >
         <v-card-title class="display-1 mb-2">
-          <span v-if="modelId">Изменение данных сотрудника</span>
+          <span v-if="modelId">Данные сотрудника</span>
           <span v-else>Создание сотрудника</span>
         </v-card-title>
 
@@ -17,10 +17,10 @@
                   align="center"
                   v-if="photoUrl"
                   :src="photoUrl"
-                  max-height="300"
-                  max-width="300"
-                  contain
-                  class="mb-2 rounded-xl"
+                  max-height="200"
+                  max-width="200"
+                  cover
+                  class="mb-2 rounded-circle"
               ></v-img>
               <v-file-input
                   v-model="form.photo"
@@ -47,9 +47,6 @@
                 dense
               />
             </v-col>
-          </v-row>
-
-          <v-row>
             <v-col md="6">
               <v-text-field
                   v-model="form.surname"
@@ -74,18 +71,15 @@
                   dense
               />
             </v-col>
-          </v-row>
-
-          <v-row>
             <v-col md="6">
               <v-text-field
-                v-model="form.email"
-                :error-messages="errors.email"
-                label="Email*"
-                :rules="[rules.required]"
-                :disabled="loading"
-                outlined
-                dense
+                  v-model="form.email"
+                  :error-messages="errors.email"
+                  label="Email*"
+                  :rules="[rules.required]"
+                  :disabled="loading"
+                  outlined
+                  dense
               />
             </v-col>
           </v-row>
@@ -120,7 +114,7 @@
                   class="ml-2"
                   :rules="(modelId ? [] : [rules.required])"
                   :type="showPassword ? 'text' : 'password'"
-                  :label="'Пароль' + (modelId ? '' : ' *')"
+                  :label="'Подтверждение пароля' + (modelId ? '' : ' *')"
                   :error-messages="form.errors.get(`password_confirmation`)"
                   outlined
                   dense

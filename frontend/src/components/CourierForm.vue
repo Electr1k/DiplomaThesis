@@ -130,9 +130,8 @@
             </v-col>
           </v-row>
 
-          <v-row>
-
-            <v-col v-if="modelId" cols="12" sm="6" md="6" xl="6">
+          <v-row v-if="modelId">
+            <v-col  cols="12" sm="6" md="6" xl="6">
               <v-text-field
                   v-model="last_update"
                   label="Дата последнего обновления"
@@ -140,6 +139,16 @@
                   outlined
                   dense
               />
+            </v-col>
+            <v-col v-if="user" cols="12" sm="6" md="6" xl="6">
+              <span class="black--text mr-2">Ответственный: </span>
+              <v-avatar
+                  class="mr-1 clickable-avatar"
+                  color="grey darken-1"
+                  size="35"
+                  @click="onUserClick"
+              ><v-img :src="user?.image" /></v-avatar>
+              <span @click="onUserClick" class="black--text clickable-text" >{{ user?.name + ' ' + user?.surname }}</span>
             </v-col>
           </v-row>
 
@@ -190,6 +199,7 @@ export default {
       courier_partners: [],
       status: '',
       last_update: null,
+      user: null,
       citizenships: [
         {
           id: 'domestic',
@@ -227,6 +237,7 @@ export default {
           this.last_update = registration.data.data.updated_at
           this.form.fill(registration.data.data)
           this.base_phone = registration.data.data.phone
+          this.user = registration.data.data.user
         }
 
       } catch (e) {
@@ -251,7 +262,38 @@ export default {
               .catch((error) => this.error(error))
 
       this.loading = false
-    }
+    },
+    onUserClick(){
+      this.$router.push({ name: 'users-edit', params: { id: this.user.id } })
+    },
   }
 }
 </script>
+<style>
+.clickable-avatar {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.clickable-avatar:hover {
+  opacity: 0.8;
+}
+
+.clickable-avatar:active {
+  opacity: 0.6;
+  transform: scale(0.98);
+}
+
+.clickable-text {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-text:hover {
+  color: #1976D2 !important;
+}
+
+.clickable-text:active {
+  transform: translateY(1px);
+}
+</style>

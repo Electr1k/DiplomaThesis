@@ -40,6 +40,15 @@
           </span>
         </template>
 
+        <template v-slot:[`item.user`]="{ item }">
+          <v-col class="text-center">
+            <v-avatar class="mr-1" color="grey darken-1" size="35" >
+              <v-img :src=item.user.image />
+            </v-avatar>
+            <span class="black--text">{{ item.user.name }}</span>
+          </v-col>
+        </template>
+
         <template v-slot:[`item.actions`]="{ item }">
           <div class="d-flex justify-end align-center mr-14">
           <v-tooltip bottom>
@@ -75,9 +84,10 @@ export default {
     return {
       headers: [
         {
-          text: 'ID регистрации',
+          text: 'Номер',
           sortable: false,
           value: 'id',
+          align: 'center',
         },
         {
           text: 'Дата регистрации',
@@ -110,18 +120,11 @@ export default {
           align: 'center',
         },
         {
-          text: 'Отчество',
+          text: 'Ответственный',
           sortable: false,
-          value: 'middle_name',
+          value: 'user',
           align: 'center',
         },
-        {
-          text: 'Номер',
-          sortable: false,
-          value: 'phone',
-          align: 'center',
-        },
-
         {
           value: 'actions',
           sortable: false,
