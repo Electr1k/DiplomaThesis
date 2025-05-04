@@ -19,6 +19,7 @@
                   :items="courier_partners"
                   item-text="region_name"
                   item-value="courier_partner_id"
+                  :error="errors_server.includes('courier_partner_id')"
                   :rules="[rules.required]"
                   :label="'Кабинет патнера*'"
                   :error-messages="form.errors.get(`courier_partner_id`)"
@@ -28,6 +29,7 @@
               <v-text-field
                   v-model="form.phone"
                   :error-messages="form.errors.phone"
+                  :error="errors_server.includes('phone')"
                   label="Номер*"
                   :rules="[rules.required]"
                   :disabled="loading"
@@ -152,6 +154,18 @@
             </v-col>
           </v-row>
 
+          <v-row align="center" v-if="error_message">
+            <v-col cols="12" sm="6" md="6" xl="6">
+              <v-text-field
+                  v-model="error_message"
+                  label="Сообщение ошибки"
+                  readonly
+                  outlined
+                  dense
+              />
+            </v-col>
+          </v-row>
+
           <v-card-actions md="6">
             <v-btn v-if="modelId" type="submit" color="primary" :loading="loading">Обновить</v-btn>
 
@@ -200,6 +214,8 @@ export default {
       status: '',
       last_update: null,
       user: null,
+      error_message: null,
+      errors_server: [],
       citizenships: [
         {
           id: 'domestic',
@@ -238,6 +254,8 @@ export default {
           this.form.fill(registration.data.data)
           this.base_phone = registration.data.data.phone
           this.user = registration.data.data.user
+          this.error_message = registration.data.data.error_message
+          this.errors_server = registration.data.data.errors
         }
 
       } catch (e) {

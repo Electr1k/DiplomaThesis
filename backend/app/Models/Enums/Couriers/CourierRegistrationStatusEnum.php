@@ -19,8 +19,8 @@ enum CourierRegistrationStatusEnum: string implements HasTitle
     public function title(): string
     {
         return match ($this) {
-            self::NEW => 'Новая',
-            self::CREATED => 'Успешно создан',
+            self::NEW => 'Ожидает создания',
+            self::CREATED => 'Успешно создана',
             self::FAILED => 'Ошибка',
         };
     }

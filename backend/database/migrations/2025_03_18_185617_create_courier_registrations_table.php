@@ -60,6 +60,10 @@ return new class extends Migration
                 ->comment('Внутренний статус регистрации курьера')
                 ->default(CourierRegistrationStatusEnum::NEW);
 
+            $table->text('error_message')
+                ->nullable()
+                ->comment('Сообщение Достависты, если возникла ошибка');
+
             $table->foreignId('courier_partner_id')
                 ->nullable()
                 ->comment('Идентификатор кабинета, которому пренадлежит курьер')

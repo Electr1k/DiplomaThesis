@@ -72,7 +72,7 @@ class CourierController extends Controller
      */
     public function registrationUpdate(CourierRegistration $registration, CourierUpdateRequest $courier): CourierRegistrationResource
     {
-        $registration->update($courier->validated());
+        $registration = $this->courierService->updateRegistration($registration, $courier->validated());
 
         return new CourierRegistrationResource($registration);
     }

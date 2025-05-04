@@ -4,6 +4,7 @@ namespace App\Service\DostavistaClients;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use RuntimeException;
 use Throwable;
 
@@ -15,17 +16,15 @@ class DostavistaClient
 
     private string $token;
 
-    private const URI_V1_COURIER_PARTNERS = '/1.0/courier-partners';
+    private const URI_V1_COURIER_PARTNERS = '/courier-partner/1.0/courier-partners';
 
-    private const URI_V1_INDEX = '/1.0/index';
+    private const URI_V1_CREATE_COURIER = '/courier-partner/1.0/create-courier';
 
-    private const URI_V1_CREATE_COURIER = '/1.0/create-courier';
+    private const URI_V1_COURIERS = '/courier-aggregator/1.1/couriers';
 
-    private const URI_V1_COURIERS = '/1.1/couriers';
+    private const URI_V1_ORDERS = '/courier-aggregator/1.1/orders';
 
-    private const URI_V1_ORDERS = '/1.1/orders';
-
-    private const URI_V1_TRANSACTIONS = '/1.1/transactions';
+    private const URI_V1_TRANSACTIONS = '/courier-aggregator/1.1/transactions';
 
 
     public function __construct()

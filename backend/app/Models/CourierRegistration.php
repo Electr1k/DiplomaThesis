@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property integer $courier_partner_id - Идентификатор кабинета, которому пренадлежит курьер
  * @property CourierRegistrationStatusEnum $status - Внутренний статус регистрации курьера
  * @property string $passport_number - Серия и номер паспорта
+ * @property string $error_message - Сообщение Достависты, если возникла ошибка
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Cabinet|null $cabinet - Кабинет, к которому относится курьер
@@ -44,7 +45,8 @@ class CourierRegistration extends Model
         'citizenship',
         'passport_number',
         'courier_partner_id',
-        'user_id'
+        'user_id',
+        'error_message',
     ];
 
     protected $casts = [

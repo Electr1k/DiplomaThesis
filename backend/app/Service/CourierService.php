@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Jobs\CreateCourierJob;
+use App\Models\CourierRegistration;
+use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
@@ -47,5 +49,20 @@ readonly class CourierService
         foreach ($couriers['couriers'] as $courier) {
             $this->courierRepository->store($courier);
         }
+    }
+
+    public function updateRegistration(CourierRegistration $registration, array $data): CourierRegistration
+    {
+        $payload = JWTAuth::parseToken()->getPayload();
+        $currentUser = $payload->get('sub');
+
+        $registration->update([...$data, 'user_id' => $currentUser]);
+        $registration->status = CourierRegistrationStatusEnum::NEW;
+        $registration->save();
+
+        // Вызов в джобе (асинхронно)
+        CreateCourierJob::dispatch($registration);
+
+        return $registration;
     }
 }
