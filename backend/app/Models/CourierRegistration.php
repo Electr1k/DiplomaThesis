@@ -26,11 +26,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Cabinet|null $cabinet - Кабинет, к которому относится курьер
+ * @property User|null $user - Сотрудник, который привел клиента
  */
 class CourierRegistration extends Model
 {
 
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'courier_id',
         'name',
@@ -41,7 +43,8 @@ class CourierRegistration extends Model
         'date_of_birth',
         'citizenship',
         'passport_number',
-        'courier_partner_id'
+        'courier_partner_id',
+        'user_id'
     ];
 
     protected $casts = [
@@ -56,5 +59,13 @@ class CourierRegistration extends Model
     public function cabinet(): BelongsTo
     {
         return $this->belongsTo(Cabinet::class, 'courier_partner_id', 'courier_partner_id');
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

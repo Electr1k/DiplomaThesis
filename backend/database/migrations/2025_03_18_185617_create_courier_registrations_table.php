@@ -56,14 +56,19 @@ return new class extends Migration
                 ->unique()
                 ->comment('Серия и номер паспорта');
 
+            $table->string('status')
+                ->comment('Внутренний статус регистрации курьера')
+                ->default(CourierRegistrationStatusEnum::NEW);
+
             $table->foreignId('courier_partner_id')
                 ->nullable()
                 ->comment('Идентификатор кабинета, которому пренадлежит курьер')
                 ->constrained('cabinets', 'courier_partner_id');
 
-            $table->string('status')
-                ->comment('Внутренний статус регистрации курьера')
-                ->default(CourierRegistrationStatusEnum::NEW);
+            $table->foreignId('user_id')
+                ->nullable()
+                ->comment('Сотрудник, который привел клиента')
+                ->constrained('users', 'id');
 
             $table->timestamps();
         });

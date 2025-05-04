@@ -8,6 +8,7 @@ use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 readonly class CourierService
 {
@@ -30,7 +31,10 @@ readonly class CourierService
 
     public function store(array $data): void
     {
-        $courier = $this->courierRegistrationRepository->store($data);
+        $payload = JWTAuth::parseToken()->getPayload();
+        $currentUser = $payload->get('sub');
+
+        $courier = $this->courierRegistrationRepository->store([...$data, 'user_id' => $currentUser]);
 
         // Вызов в джобе (асинхронно)
         CreateCourierJob::dispatch($courier);

@@ -28,10 +28,12 @@ class CourierRegistrationResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'citizenship' => $this->citizenship,
             'passport_number' => $this->passport_number,
-            'status' => $this->status,
+            'status' => $this->status->title(),
+            'status_code' => $this->status->value,
+            'user' => new UserResource($this->user),
             'cabinet' => new CabinetResource($this->cabinet),
-            'created_at' => Carbon::parse($this->created_at)->format('d.m.Y'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('d.m.Y')
+            'created_at' => Carbon::parse($this->created_at)->format('d.m.Y H:i'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('d.m.Y H:i')
         ];
     }
 }

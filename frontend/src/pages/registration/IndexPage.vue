@@ -30,6 +30,16 @@
           <slot :name="slot" v-bind="scope"/>
         </template>
 
+        <template v-slot:[`item.status`]="{ item }">
+          <span :class="{
+              'green--text': item.status_code === 'created',
+              'red--text': item.status_code === 'failed',
+              'orange--text': item.status_code === 'new'
+            }">
+              {{ item.status }}
+          </span>
+        </template>
+
         <template v-slot:[`item.actions`]="{ item }">
           <div class="d-flex justify-end align-center mr-14">
           <v-tooltip bottom>
