@@ -35,6 +35,15 @@
           <slot :name="slot" v-bind="scope"/>
         </template>
 
+        <template v-slot:[`item.name`]="{ item }">
+          <v-col class="justify-center">
+            <v-avatar class="mr-2" color="grey darken-1" size="35" >
+              <v-img :src=item.image />
+            </v-avatar>
+            <span class="black--text">{{ item.name }}</span>
+          </v-col>
+        </template>
+
         <template v-slot:[`item.actions`]="{ item }">
           <div class="d-flex justify-end align-center mr-14">
           <v-tooltip bottom>
@@ -87,29 +96,40 @@ export default {
           text: 'ID',
           sortable: false,
           value: 'id',
+          align: 'center'
         },
         {
           text: 'Имя',
           sortable: false,
           value: 'name',
+          align: 'center'
         },
         {
           text: 'Фамилия',
           sortable: false,
           value: 'surname',
+          align: 'center'
         },
         {
           text: 'Отчество',
           sortable: false,
           value: 'middle_name',
+          align: 'center'
         },
         {
           text: 'Роль',
           sortable: false,
           value: 'role.name',
+          align: 'center'
         },
         {
-            value: 'actions',
+          text: 'Email',
+          sortable: false,
+          value: 'email',
+          align: 'center'
+        },
+        {
+          value: 'actions',
           sortable: false,
         }
       ],

@@ -5,13 +5,12 @@
           :loading="loading"
           :disabled="loading"
       >
-        <v-card-title class="display-1 mb-2">
-          <span v-if="modelId">Данные сотрудника</span>
-          <span v-else>Создание сотрудника</span>
+        <v-card-title  class="display-1 mb-2 justify-center">
+          <span v-if="! modelId">Создание сотрудника</span>
         </v-card-title>
 
         <v-card-text>
-          <v-row class="flex">
+          <v-row align="center" justify="center" class="flex">
             <v-col md="4" align="center">
               <v-img
                   align="center"
@@ -92,7 +91,7 @@
             item-text="name"
             item-value="id"
             :label="'Роль*'"
-            :error-messages="form.errors.get(`role_id`)"
+            :error-messages="errors.role_id"
           />
 
           <v-row>
@@ -135,7 +134,7 @@
 
         </v-card-text>
 
-        <v-card-actions>
+        <v-card-actions class="justify-center pb-5">
           <v-btn type="submit" color="primary" :loading="loading">
             Сохранить
           </v-btn>
