@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Jobs\CreateCourierJob;
 use App\Models\CourierRegistration;
-use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
+use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
@@ -57,7 +57,7 @@ readonly class CourierService
         $currentUser = $payload->get('sub');
 
         $registration->update([...$data, 'user_id' => $currentUser]);
-        $registration->status = CourierRegistrationStatusEnum::NEW;
+        $registration->status = CourierRegistrationStatus::NEW;
         $registration->save();
 
         // Вызов в джобе (асинхронно)

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
+use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -58,7 +58,7 @@ return new class extends Migration
 
             $table->string('status')
                 ->comment('Внутренний статус регистрации курьера')
-                ->default(CourierRegistrationStatusEnum::NEW);
+                ->default(CourierRegistrationStatus::NEW);
 
             $table->text('error_message')
                 ->nullable()

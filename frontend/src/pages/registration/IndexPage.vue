@@ -10,7 +10,8 @@
       <v-col md="3">
         <v-autocomplete
             :items="users"
-            @change="updatedSelect"
+            :value="selectedUser"
+            @change="updatedSelectUser"
             chips
             item-text="name"
             item-value="id"
@@ -26,7 +27,8 @@
           </template>
 
           <template v-slot:selection="{ item }">
-            <v-chip>
+            <v-chip  outlined
+                     pill color="primary" close @click:close="clearUser">
               <v-avatar left>
                 <v-img :src="item.image" />
               </v-avatar>
@@ -35,6 +37,31 @@
           </template>
         </v-autocomplete>
       </v-col>
+
+      <v-col md="3">
+        <v-autocomplete
+            :items="statuses"
+            :value="selectedStatus"
+            @change="updatedSelectStatus"
+            chips
+            item-text="name"
+            item-value="value"
+            label="Статус"
+        >
+          <template v-slot:item="{ item }">
+            <v-list-item-title>
+              {{ item.name }}
+            </v-list-item-title>
+            </template>
+
+          <template v-slot:selection="{ item }">
+            <v-chip :color="item.color" close @click:close="clearStatus">
+              {{ item.name }}
+            </v-chip>
+          </template>
+        </v-autocomplete>
+      </v-col>
+
     </v-row>
     <br>
 
@@ -160,6 +187,8 @@ export default {
       ],
       items: [],
       users: [],
+      statuses: [{ name: 'Ошибка', value: 'failed', color: 'error' }, { name: 'Ожидает подтверждения', value: 'waiting', color: 'warning' }, { name: 'Ожидает создания', value: 'new', color: 'primary' }, { name: 'Успешно создан', value: 'created', color: 'success' }],
+      selectedStatus: null,
       selectedUser: null,
       search: "",
       loading: true
@@ -193,7 +222,7 @@ export default {
     async updateSearch(){
       try {
         this.loading = true
-        const response = await $api.registrations.index({search: this.search, user: this.selectedUser});
+        const response = await $api.registrations.index({search: this.search, user_id: this.selectedUser, status: this.selectedStatus});
         if (response.data && response.data.data) {
           this.items = response.data.data
         }
@@ -203,10 +232,22 @@ export default {
       }
       this.loading = false
     },
-    async updatedSelect(item){
+    async updatedSelectUser(item){
       this.selectedUser = item
       await this.updateSearch()
-    }
+    },
+    async updatedSelectStatus(item){
+      this.selectedStatus = item
+      await this.updateSearch()
+    },
+    async clearUser(){
+      this.selectedUser = null
+      await this.updateSearch()
+    },
+    async clearStatus(){
+      this.selectedStatus = null
+      await this.updateSearch()
+    },
   }
 }
 </script>

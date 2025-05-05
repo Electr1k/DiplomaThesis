@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\CourierRegistration;
-use App\Models\Enums\Couriers\CourierRegistrationStatusEnum;
+use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use App\Service\DostavistaClients\DostavistaClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -29,7 +29,7 @@ class CreateCourierJob implements ShouldQueue
             $exceptionMessage = array_keys($e->response->json()['parameter_errors']) ?? 'Неизвестная ошибка';
         }
 
-        $this->courier->status = ! ($result['is_successful'] ?? null) ? CourierRegistrationStatusEnum::FAILED : CourierRegistrationStatusEnum::CREATED;
+        $this->courier->status = ! ($result['is_successful'] ?? null) ? CourierRegistrationStatus::FAILED : CourierRegistrationStatus::CREATED;
         $this->courier->courier_id = $result['courier']['courier_id'] ?? null;
         $this->courier->error_message = $exceptionMessage;
         $this->courier->save();
