@@ -149,7 +149,7 @@ export default {
     async updateSearch(){
       try {
         this.loading = true
-        const response = await $api.inactive_couriers.index(this.search);
+        const response = await $api.inactive_couriers.index({search: this.search});
         if (response.data && response.data.data) {
           this.items = response.data.data
         }

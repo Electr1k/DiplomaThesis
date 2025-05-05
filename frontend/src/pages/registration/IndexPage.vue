@@ -3,9 +3,37 @@
     <h3>Регистрации</h3>
     <br>
 
-    <v-row>
+    <v-row align="center">
       <v-col md="4">
         <SearchField v-model="search" @keydown.enter="updateSearch()" />
+      </v-col>
+      <v-col md="3">
+        <v-autocomplete
+            :items="users"
+            @change="updatedSelect"
+            chips
+            item-text="name"
+            item-value="id"
+            label="Ответственный"
+        >
+          <template v-slot:item="{ item }">
+            <v-list-item-avatar>
+              <v-img :src="item.image" />
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.name }} {{ item.surname }}</v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <template v-slot:selection="{ item }">
+            <v-chip>
+              <v-avatar left>
+                <v-img :src="item.image" />
+              </v-avatar>
+              {{ item.name }} {{ item.surname }}
+            </v-chip>
+          </template>
+        </v-autocomplete>
       </v-col>
     </v-row>
     <br>
@@ -131,6 +159,8 @@ export default {
         }
       ],
       items: [],
+      users: [],
+      selectedUser: null,
       search: "",
       loading: true
     }
@@ -147,6 +177,13 @@ export default {
       this.$toast.error(e.message);
     }
     this.loading = false
+
+    try {
+      const response = await $api.users.index();
+      if (response.data && response.data.data) {
+        this.users = response.data.data
+      }
+    } catch (e){e;}
   },
 
   methods: {
@@ -156,7 +193,7 @@ export default {
     async updateSearch(){
       try {
         this.loading = true
-        const response = await $api.registrations.index(this.search);
+        const response = await $api.registrations.index({search: this.search, user: this.selectedUser});
         if (response.data && response.data.data) {
           this.items = response.data.data
         }
@@ -165,6 +202,10 @@ export default {
         this.$toast.error(e.message);
       }
       this.loading = false
+    },
+    async updatedSelect(item){
+      this.selectedUser = item
+      await this.updateSearch()
     }
   }
 }

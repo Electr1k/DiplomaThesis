@@ -138,7 +138,7 @@ export default {
     async updateSearch(){
       try {
         this.loading = true
-        const response = await $api.roles.index(this.search);
+        const response = await $api.roles.index({search: this.search});
         if (response.data && response.data.data) {
           this.items = response.data.data
         }

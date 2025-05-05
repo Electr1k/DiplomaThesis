@@ -34,9 +34,9 @@ class BaseApi {
     }
   }
 
-  async index(search = null) {
+  async index(params = null) {
     try {
-      return await axios.get(this.url.index(), {...this.getConfig(), params: search ? {search: search} : search})
+      return await axios.get(this.url.index(), {...this.getConfig(), params: params})
     } catch (e) {
       await this.checkStatusResponse(e)
     }
