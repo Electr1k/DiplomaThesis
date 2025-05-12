@@ -9,7 +9,9 @@ use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use App\Models\Enums\Permissions\CabinetPermissions;
 use App\Models\Enums\Permissions\CourierPermissions;
+use App\Models\Enums\Permissions\DashboardPermissions;
 use App\Models\Enums\Permissions\PermissionPermissions;
+use App\Models\Enums\Permissions\ReportPermissions;
 use App\Models\Enums\Permissions\RolePermissions;
 use App\Models\Enums\Permissions\UserPermissions;
 use App\Models\Role;
@@ -59,9 +61,8 @@ Route::prefix('v1')
         Route::middleware('permission:'.CourierPermissions::READ->value)
             ->get('/couriers/registrations/{registration}', [CourierController::class, 'registrationShow']);
 
-        // TODO : NEW PERMISSION
-        Route:://middleware('permission:'.CourierPermissions::READ->value)->
-        put('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
+        Route::middleware('permission:'.CourierPermissions::UPDATE->value)
+            ->put('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
 
         Route::middleware('permission:'.CourierPermissions::READ->value)
             ->apiResource('couriers', CourierController::class)->only(['index', 'show']);
@@ -75,14 +76,15 @@ Route::prefix('v1')
         Route::middleware('permission:'.CabinetPermissions::READ->value)
             ->apiResource('cabinets', CabinetController::class)->only(['index', 'show']);
 
-        // TODO : NEW PERMISSION
         Route::prefix('/reports')->group(function () {
-            Route:://middleware('permission:'.CourierPermissions::READ->value)->
-            get('summary', [ReportController::class, 'indexSummary']);
+            Route::middleware('permission:'.ReportPermissions::SUMMARY->value)
+                ->get('summary', [ReportController::class, 'indexSummary']);
 
-            Route::prefix('/dashboard')->group(function () {
-                Route::get('/orders', [ReportController::class, 'dashboardOrders']);
-                Route::get('/new-clients', [ReportController::class, 'dashboardNewClients']);
+            Route::prefix('/dashboard')
+                ->middleware('permission:'.DashboardPermissions::READ->value)
+                ->group(function () {
+                    Route::get('/orders', [ReportController::class, 'dashboardOrders']);
+                    Route::get('/new-clients', [ReportController::class, 'dashboardNewClients']);
             });
         });
 

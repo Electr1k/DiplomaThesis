@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Enums\Permissions\CabinetPermissions;
 use App\Models\Enums\Permissions\CourierPermissions;
+use App\Models\Enums\Permissions\DashboardPermissions;
 use App\Models\Enums\Permissions\PermissionPermissions;
+use App\Models\Enums\Permissions\ReportPermissions;
 use App\Models\Enums\Permissions\RolePermissions;
 use App\Models\Enums\Permissions\UserPermissions;
 use App\Models\Permission;
@@ -23,6 +25,8 @@ class PermissionSeeder extends Seeder
             PermissionPermissions::class,
             RolePermissions::class,
             UserPermissions::class,
+            DashboardPermissions::class,
+            ReportPermissions::class,
         ];
 
         foreach ($sections as $section) {
