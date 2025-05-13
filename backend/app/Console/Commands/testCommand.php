@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\CourierRegistration;
+use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use App\Service\CabinetService;
 use App\Service\CourierService;
 use App\Service\DostavistaClients\DostavistaClient;
@@ -20,10 +22,7 @@ class testCommand extends Command
 
     public function handle(DostavistaClient $client): void
     {
-        $a = $client->storeCourier([
-            'fsdfs' => 'fsdf'
-        ]);
+        CourierRegistration::query()->create(['phone' => '1234', "citizenship" => 'domestics', 'status' => CourierRegistrationStatus::WAITING]);
 
-        dd($a);
     }
 }

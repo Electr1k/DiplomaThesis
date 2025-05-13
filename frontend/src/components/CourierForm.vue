@@ -19,7 +19,7 @@
                   :items="courier_partners"
                   item-text="region_name"
                   item-value="courier_partner_id"
-                  :error="errors_server.includes('courier_partner_id')"
+                  :error="errors_server?.includes('courier_partner_id')"
                   :rules="[rules.required]"
                   :label="'Кабинет патнера*'"
                   :error-messages="form.errors.get(`courier_partner_id`)"
@@ -29,7 +29,7 @@
               <v-text-field
                   v-model="form.phone"
                   :error-messages="form.errors.phone"
-                  :error="errors_server.includes('phone')"
+                  :error="errors_server?.includes('phone')"
                   label="Номер*"
                   :rules="[rules.required]"
                   :disabled="loading"
@@ -167,7 +167,7 @@
           </v-row>
 
           <v-card-actions md="6">
-            <v-btn v-if="modelId" type="submit" color="primary" :loading="loading">Обновить</v-btn>
+            <v-btn v-if="modelId" type="submit" color="primary" :loading="loading">{{ status_code === 'waiting' ? 'Подтвердить' : "Обновить" }}</v-btn>
 
             <v-btn v-else type="submit" color="primary" :loading="loading">Зарегистрировать</v-btn>
 
@@ -212,6 +212,7 @@ export default {
       base_phone: '',
       courier_partners: [],
       status: '',
+      status_code: null,
       last_update: null,
       user: null,
       error_message: null,
@@ -250,6 +251,7 @@ export default {
           const registration = (await $api.registrations.get(this.modelId))
           registration.data.data.courier_partner_id = registration.data.data.cabinet.courier_partner_id
           this.status = registration.data.data.status
+          this.status_code = registration.data.data.status_code
           this.last_update = registration.data.data.updated_at
           this.form.fill(registration.data.data)
           this.base_phone = registration.data.data.phone

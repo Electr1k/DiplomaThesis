@@ -7,6 +7,7 @@ use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\ReportController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
+use App\Http\Controllers\V1\VerifyController;
 use App\Models\Enums\Permissions\CabinetPermissions;
 use App\Models\Enums\Permissions\CourierPermissions;
 use App\Models\Enums\Permissions\DashboardPermissions;
@@ -24,6 +25,11 @@ Route::prefix('v1')
             Route::post('login', [AuthController::class, 'login']);
             Route::get('refresh', [AuthController::class, 'refresh']);
             Route::get('logout', [AuthController::class, 'logout']);
+        });
+
+        Route::prefix('public')->group(function () {
+            Route::post('verify-phone', [VerifyController::class, 'verifyPhone']);
+            Route::post('registration', [CourierController::class, 'storeRegistrationTicket']);
         });
 
         Route::middleware('permission:'.PermissionPermissions::READ->value)

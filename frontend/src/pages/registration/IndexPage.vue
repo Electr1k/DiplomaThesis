@@ -18,7 +18,7 @@
             label="Ответственный"
         >
           <template v-slot:item="{ item }">
-            <v-list-item-avatar>
+            <v-list-item-avatar >
               <v-img :src="item.image" />
             </v-list-item-avatar>
             <v-list-item-content>
@@ -89,14 +89,15 @@
           <span :class="{
               'green--text': item.status_code === 'created',
               'red--text': item.status_code === 'failed',
-              'orange--text': item.status_code === 'new'
+              'orange--text': item.status_code === 'new',
+              'blue--text': item.status_code === 'waiting'
             }">
               {{ item.status }}
           </span>
         </template>
 
         <template v-slot:[`item.user`]="{ item }">
-          <v-col class="text-center">
+          <v-col class="text-center" v-if="item.user">
             <v-avatar class="mr-1" color="grey darken-1" size="35" >
               <v-img :src=item.user.image />
             </v-avatar>

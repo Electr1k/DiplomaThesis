@@ -8,7 +8,7 @@ use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use App\Repositories\CourierRegistrationRepository;
 use App\Repositories\CourierRepository;
 use App\Service\DostavistaClients\DostavistaClient;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -33,8 +33,12 @@ readonly class CourierService
 
     public function store(array $data): void
     {
-        $payload = JWTAuth::parseToken()->getPayload();
-        $currentUser = $payload->get('sub');
+        $currentUser = null;
+        try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $currentUser = $payload->get('sub');
+        }
+        catch(Exception $e){}
 
         $courier = $this->courierRegistrationRepository->store([...$data, 'user_id' => $currentUser]);
 

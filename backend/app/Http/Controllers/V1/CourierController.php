@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Couriers\CourierRegistrationStoreRequest;
 use App\Http\Requests\Couriers\CourierStoreRequest;
 use App\Http\Requests\Couriers\CourierUpdateRequest;
 use App\Http\Resources\Courier\CourierIndexResource;
@@ -12,12 +13,14 @@ use App\Http\Resources\Courier\CourierShowResource;
 use App\Http\Resources\CourierRegistrationResource;
 use App\Models\Courier;
 use App\Models\CourierRegistration;
+use App\Models\Enums\Couriers\CourierRegistrationStatus;
+use App\Models\VerifyPhone;
 use App\Repositories\CourierRegistrationRepository;
-use App\Repositories\CourierRepository;
 use App\Service\CourierService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CourierController extends Controller
 {
@@ -48,6 +51,42 @@ class CourierController extends Controller
         $this->courierService->store($courier->validated());
 
         return response()->json(['message' => 'Courier successfully created'], 201);
+    }
+
+    /**
+     * Создание заявки для регистрации курьера.
+     */
+    public function storeRegistrationTicket(CourierRegistrationStoreRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $verifyBuilder = VerifyPhone::query()->where('phone', $data['phone'])
+            ->where('updated_at', '>=', now()->subMinutes(15));
+
+        $existVerify = (clone $verifyBuilder)->exists();
+
+        if (! $existVerify) {
+            throw new UnprocessableEntityHttpException('Номер не подтвержден');
+        }
+
+        $existVerify = (clone $verifyBuilder)->where('code', $data['code'])->exists();
+
+        if (! $existVerify) {
+            $verify = $verifyBuilder
+                ->orderByDesc('created_at')
+                ->first();
+
+            $verify->attempts++;
+            $verify->save();
+
+            throw new UnprocessableEntityHttpException('Неверный код');
+        }
+
+        $registration = CourierRegistration::query()->create($data);
+        $registration->status = CourierRegistrationStatus::WAITING;
+        $registration->save();
+
+        return response()->json(['message' => 'Courier successfully registered'], 201);
     }
 
 

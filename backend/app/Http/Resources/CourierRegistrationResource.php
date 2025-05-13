@@ -30,9 +30,9 @@ class CourierRegistrationResource extends JsonResource
             'passport_number' => $this->passport_number,
             'status' => $this->status->title(),
             'status_code' => $this->status->value,
-            'user' => new UserResource($this->user),
+            'user' => $this->user ? new UserResource($this->user) : null,
             'error_message' => $this->error_message,
-            'errors' => array_keys(json_decode($this->error_message ?? [], true)),
+            'errors' => $this->error_message ? array_keys(json_decode($this->error_message, true)) : null,
             'cabinet' => new CabinetResource($this->cabinet),
             'created_at' => Carbon::parse($this->created_at)->format('d.m.Y H:i'),
             'updated_at' => Carbon::parse($this->updated_at)->format('d.m.Y H:i')
