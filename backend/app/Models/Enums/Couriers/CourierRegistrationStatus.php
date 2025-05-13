@@ -18,6 +18,9 @@ enum CourierRegistrationStatus: string implements HasTitle
     // Ожидает подтверждения
     case WAITING = 'waiting';
 
+    // Отклонено
+    case CLOSED = 'closed';
+
 
     public function title(): string
     {
@@ -25,7 +28,8 @@ enum CourierRegistrationStatus: string implements HasTitle
             self::NEW => 'Ожидает создания',
             self::CREATED => 'Успешно создан',
             self::FAILED => 'Ошибка',
-            self::WAITING => 'Ожидает подтверждения'
+            self::WAITING => 'Ожидает подтверждения',
+            self::CLOSED => 'Отклонено'
         };
     }
 }

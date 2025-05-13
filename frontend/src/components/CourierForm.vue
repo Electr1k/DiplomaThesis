@@ -171,6 +171,8 @@
 
             <v-btn v-else type="submit" color="primary" :loading="loading">Зарегистрировать</v-btn>
 
+            <v-btn v-if="modelId && status_code==='waiting'" color="error" :loading="loading" @click="closeRegistration">Отклонить</v-btn>
+
             <v-btn @click="$router.go(-1)">Отмена</v-btn>
           </v-card-actions>
         </v-card-text>
@@ -286,6 +288,11 @@ export default {
     onUserClick(){
       this.$router.push({ name: 'users-edit', params: { id: this.user.id } })
     },
+    async closeRegistration(){
+      await $api.registrations.close(this.modelId)
+          .then(() => this.$emit('submit'))
+          .catch((error) => this.error(error))
+    }
   }
 }
 </script>

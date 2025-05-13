@@ -70,6 +70,9 @@ Route::prefix('v1')
         Route::middleware('permission:'.CourierPermissions::UPDATE->value)
             ->put('/couriers/registrations/{registration}', [CourierController::class, 'registrationUpdate']);
 
+        Route::middleware('permission:'.CourierPermissions::UPDATE->value)
+            ->get('/couriers/registrations/{registration}/close', [CourierController::class, 'closeRegistrationTicket']);
+
         Route::middleware('permission:'.CourierPermissions::READ->value)
             ->apiResource('couriers', CourierController::class)->only(['index', 'show']);
 

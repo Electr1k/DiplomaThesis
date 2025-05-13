@@ -17,10 +17,12 @@ use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use App\Models\VerifyPhone;
 use App\Repositories\CourierRegistrationRepository;
 use App\Service\CourierService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CourierController extends Controller
 {
@@ -87,6 +89,25 @@ class CourierController extends Controller
         $registration->save();
 
         return response()->json(['message' => 'Courier successfully registered'], 201);
+    }
+
+    /**
+     * Отклонение заявки для регистрации курьера.
+     */
+    public function closeRegistrationTicket(CourierRegistration $registration): CourierRegistrationResource
+    {
+        $currentUser = null;
+        try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $currentUser = $payload->get('sub');
+        }
+        catch(Exception $e){}
+
+        $registration->status = CourierRegistrationStatus::CLOSED;
+        $registration->user_id = $currentUser;
+        $registration->save();
+
+        return new CourierRegistrationResource($registration);
     }
 
 

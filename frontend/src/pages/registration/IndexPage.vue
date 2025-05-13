@@ -87,11 +87,11 @@
 
         <template v-slot:[`item.status`]="{ item }">
           <span :class="{
-              'green--text': item.status_code === 'created',
-              'red--text': item.status_code === 'failed',
-              'orange--text': item.status_code === 'new',
-              'blue--text': item.status_code === 'waiting'
-            }">
+            'green--text': item.status_code === 'created',
+            'red--text': item.status_code === 'failed' || item.status_code === 'closed',
+            'orange--text': item.status_code === 'new',
+            'blue--text': item.status_code === 'waiting',
+          }">
               {{ item.status }}
           </span>
         </template>
@@ -188,7 +188,7 @@ export default {
       ],
       items: [],
       users: [],
-      statuses: [{ name: 'Ошибка', value: 'failed', color: 'error' }, { name: 'Ожидает подтверждения', value: 'waiting', color: 'warning' }, { name: 'Ожидает создания', value: 'new', color: 'primary' }, { name: 'Успешно создан', value: 'created', color: 'success' }],
+      statuses: [{ name: 'Ошибка', value: 'failed', color: 'error' }, { name: 'Ожидает подтверждения', value: 'waiting', color: 'warning' }, { name: 'Ожидает создания', value: 'new', color: 'primary' }, { name: 'Успешно создан', value: 'created', color: 'success' }, { name: 'Отклонено', value: 'closed', color: 'error' }],
       selectedStatus: null,
       selectedUser: null,
       search: "",

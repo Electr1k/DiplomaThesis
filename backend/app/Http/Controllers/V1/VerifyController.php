@@ -32,7 +32,6 @@ class VerifyController extends Controller
         $canVerify = ! $verifyBuilder
             ->where('phone', $phone)
             ->where('updated_at', '>=', now()->subMinute())
-            ->orWhere('created_at', '>=', now()->subMinute())
             ->exists();
 
         if (! $canVerify){

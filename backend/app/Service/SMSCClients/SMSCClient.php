@@ -5,6 +5,7 @@ namespace App\Service\SMSCClients;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use RuntimeException;
 use Throwable;
 
@@ -62,15 +63,14 @@ class SMSCClient
         return Http::baseUrl($this->host)
             ->withQueryParameters(array_merge($queryParameters, $params))
             ->send($method, $url)
-            ->throw()
-            ->json();
+            ->throw();
     }
 
     /**
      * @throws Throwable
      */
     public function flashCall(string $phone, int $code): void {
-        $this->makeRequest(
+        Log::info($this->makeRequest(
             'GET',
             self::URI_SEND_MESSAGE,
             [
@@ -78,7 +78,7 @@ class SMSCClient
                 'mes' => 'Ваш код: ' . $code,
                 'call' => 1
             ]
-        );
+        ));
     }
 
 }
