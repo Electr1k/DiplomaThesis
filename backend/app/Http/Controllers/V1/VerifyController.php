@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Verify\VerifyPhoneRequest;
 use App\Models\VerifyPhone;
-use App\Service\SMSCClients\SMSCClient;
+use App\Service\SMSAeroClients\SMSAeroClient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -14,7 +14,7 @@ use Throwable;
 class VerifyController extends Controller
 {
 
-    public function verifyPhone(VerifyPhoneRequest $request, SMSCClient $client): JsonResponse
+    public function verifyPhone(VerifyPhoneRequest $request, SMSAeroClient $client): JsonResponse
     {
         $phone = $request->validated()['phone'];
 
@@ -44,7 +44,7 @@ class VerifyController extends Controller
             ->updateOrCreate(['phone' => $phone, 'ip' => $request->ip()], ['code' => $code]);
 
         try {
-            $client->flashCall($phone, $code);
+            $client->sendSms($phone, $code);
 
             return response()->json(['status' => true]);
         }

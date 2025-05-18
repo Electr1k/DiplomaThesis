@@ -23,7 +23,7 @@ class VerifyPhoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => ['required', 'regex:/^(\+7|8)\d{10}$/'],
+            'phone' => ['required', 'regex:/^(7|8)\d{10}$/'],
         ];
     }
 }
