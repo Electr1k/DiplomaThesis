@@ -28,7 +28,7 @@ readonly class OrderService
 
         $nextPageId = null;
         do {
-            $data = $this->dostavistaClient->fetchOrders($from, $to, $nextPageId);
+            $data = $this->dostavistaClient->fetchOrders(new Carbon($from), $to, $nextPageId);
 
             foreach ($data['orders'] as $order) {
                 $this->ordersRepository->store($order);

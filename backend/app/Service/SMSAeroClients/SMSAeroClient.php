@@ -64,7 +64,6 @@ class SMSAeroClient
         array $data = []
     ): mixed {
 
-        Log::info("https://$this->email:$this->token$this->host$url");
         return Http::baseUrl("https://$this->email:$this->token$this->host")
             ->withQueryParameters($data)
             ->send($method, $url)

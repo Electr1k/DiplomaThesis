@@ -19,7 +19,6 @@ class CabinetRepositoryTest extends TestCase
         $this->repository = new CabinetRepository();
     }
 
-    /** @test */
     public function test_returns_all_cabinets_without_filters()
     {
         Cabinet::factory()->count(3)->create();
@@ -29,7 +28,6 @@ class CabinetRepositoryTest extends TestCase
         $this->assertCount(3, $result);
     }
 
-    /** @test */
     public function test_filters_cabinets_by_region_name()
     {
         Cabinet::factory()->create(['region_name' => 'Москва']);
@@ -41,7 +39,6 @@ class CabinetRepositoryTest extends TestCase
         $this->assertEquals('Москва', $result->first()->region_name);
     }
 
-    /** @test */
     public function test_filters_cabinets_by_legal_name()
     {
         Cabinet::factory()->create(['legal_name' => 'Иванов А. А.']);
@@ -53,7 +50,6 @@ class CabinetRepositoryTest extends TestCase
         $this->assertEquals('Иванов А. А.', $result->first()->legal_name);
     }
 
-    /** @test */
     public function test_creates_new_cabinet_if_not_exists()
     {
         $data = [
@@ -67,7 +63,6 @@ class CabinetRepositoryTest extends TestCase
         $this->assertDatabaseHas('cabinets', $data);
     }
 
-    /** @test */
     public function test_updates_existing_cabinet_if_courier_partner_id_exists()
     {
         $existingCabinet = Cabinet::factory()->create(['courier_partner_id' => 1, 'legal_name' => 'Старый владелец']);

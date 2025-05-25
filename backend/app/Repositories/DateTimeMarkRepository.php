@@ -11,19 +11,19 @@ class DateTimeMarkRepository
 {
     public function getLastImportOrdersDateTimeMark(): ?DateTimeMark
     {
-        return DateTimeMark::query()->where('type', DateTimeMarkType::LAST_IMPORT_ORDERS)->first();
+        return DateTimeMark::query()->where('type', DateTimeMarkType::LAST_IMPORT_ORDERS->value)->first();
     }
 
     public function getLastImportTransactionsDateTimeMark(): ?DateTimeMark
     {
-        return DateTimeMark::query()->where('type', DateTimeMarkType::LAST_IMPORT_TRANSACTIONS)->first();
+        return DateTimeMark::query()->where('type', DateTimeMarkType::LAST_IMPORT_TRANSACTIONS->value)->first();
     }
 
     public function upsert(
         DateTimeMarkType $type,
         Carbon $dateTime,
-    ): Order
+    ): DateTimeMark
     {
-        return Order::query()->updateOrCreate(['type' => $type], ['type' => $type, 'date_time' => $dateTime]);
+        return DateTimeMark::query()->updateOrCreate(['type' => $type->value], ['type' => $type->value, 'date_time' => $dateTime]);
     }
 }

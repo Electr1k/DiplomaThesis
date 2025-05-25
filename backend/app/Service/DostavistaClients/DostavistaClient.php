@@ -16,15 +16,15 @@ class DostavistaClient
 
     private string $token;
 
-    private const URI_V1_COURIER_PARTNERS = '/courier-partner/1.0/courier-partners';
+    public const URI_V1_COURIER_PARTNERS = '/courier-partner/1.0/courier-partners';
 
-    private const URI_V1_CREATE_COURIER = '/courier-partner/1.0/create-courier';
+    public const URI_V1_CREATE_COURIER = '/courier-partner/1.0/create-courier';
 
-    private const URI_V1_COURIERS = '/courier-aggregator/1.1/couriers';
+    public const URI_V1_COURIERS = '/courier-aggregator/1.1/couriers';
 
-    private const URI_V1_ORDERS = '/courier-aggregator/1.1/orders';
+    public const URI_V1_ORDERS = '/courier-aggregator/1.1/orders';
 
-    private const URI_V1_TRANSACTIONS = '/courier-aggregator/1.1/transactions';
+    public const URI_V1_TRANSACTIONS = '/courier-aggregator/1.1/transactions';
 
 
     public function __construct()

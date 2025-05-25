@@ -6,6 +6,8 @@ use App\Models\Enums\Couriers\Citizenship;
 use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use Carbon\Carbon;
 use Carbon\Traits\Date;
+use Database\Factories\CourierRegistrationFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -31,6 +33,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class CourierRegistration extends Model
 {
+    /** @use HasFactory<CourierRegistrationFactory> */
+    use HasFactory;
 
     protected $primaryKey = 'id';
 

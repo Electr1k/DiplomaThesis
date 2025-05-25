@@ -28,7 +28,7 @@ readonly class TransactionService
 
         $nextPageId = null;
         do {
-            $data = $this->dostavistaClient->fetchTransactions($from, $to, $nextPageId);
+            $data = $this->dostavistaClient->fetchTransactions(new Carbon($from), $to, $nextPageId);
 
             foreach ($data['transactions'] as $order) {
                 $this->transactionsRepository->store($order);

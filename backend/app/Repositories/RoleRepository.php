@@ -45,7 +45,7 @@ class RoleRepository
             'name' => $data['name'],
         ]);
 
-        $role->permissions()->sync($data['permissions']);
+        $role->permissions()?->sync($data['permissions']);
         return $role;
     }
 

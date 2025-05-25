@@ -25,7 +25,7 @@ class DateTimeMark extends Model
     ];
 
     protected $casts = [
-        'type' => DateTimeMarkType::class,
-        'date_time' => Carbon::class,
+//        'type' => DateTimeMarkType::class,
+//        'date_time' => Carbon::class,
     ];
 }
