@@ -58,40 +58,51 @@
                 <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="submit">
                   <v-text-field
                       v-model="form.surname"
+                      :rules="requiredRules"
                       label="Фамилия"
-                      required
                       outlined
                       prepend-inner-icon="mdi-account"
                   ></v-text-field>
 
                   <v-text-field
                       v-model="form.name"
+                      :rules="requiredRules"
                       label="Имя"
-                      required
                       outlined
                       prepend-inner-icon="mdi-account"
                   ></v-text-field>
 
-                  <v-text-field
-                      v-model="form.middle_name"
-                      label="Отчество"
+                  <v-select
+                      :items="cabinets"
+                      v-model="form.courier_partner_id"
+                      :rules="requiredRules"
                       outlined
-                      prepend-inner-icon="mdi-account"
-                  ></v-text-field>
+                      :item-text="item => `${item.region_name} (${item.vehicle_type_name})`"
+                      item-value="courier_partner_id"
+                      label="Город"
+                  >
+                    <template v-slot:item="{ item }">
+                      <v-list-item-title>
+                        {{ `${item.region_name} (${item.vehicle_type_name})` }}
+                      </v-list-item-title>
+                    </template>
 
+                  </v-select>
                   <v-text-field
-                      v-model="form.phone"
+                      v-model="formated_phone"
                       :rules="phoneRules"
                       label="Номер телефона"
-                      required
                       outlined
+                      single-line
+                      @input="formatPhone()"
                       prepend-inner-icon="mdi-phone"
+                      maxlength="17"
                   ></v-text-field>
 
                   <v-select
                       :items="citizenships"
-                      :value="form.citizenship"
-                      @change="(item) => form.citizenship = item"
+                      v-model="form.citizenship"
+                      :rules="requiredRules"
                       outlined
                       item-text="name"
                       item-value="value"
@@ -103,6 +114,7 @@
                       </v-list-item-title>
                     </template>
                   </v-select>
+
 
                   <v-btn
                       type="submit"
@@ -144,6 +156,7 @@ export default {
     PhoneVerificationDialog
   },
   data: () => ({
+    baseUrl: 'http://localhost:8080',
     valid: true,
     form: new Form({
       name: null,
@@ -153,11 +166,13 @@ export default {
       citizenship: null,
       code: null
     }),
+    formated_phone: "",
     citizenships: [{name: 'Гражданин страны', value: 'domestic'}, {name: 'Иностранный гражданин', value: 'foreign'}, {name: 'Неизвестно', value: 'unknown'},],
-
+    cabinets: [],
+    requiredRules: [v => !!v || "Обязательное поле"], // Правило для обязательных полей
     phoneRules: [
       v => !!v || 'Укажите номер телефона',
-      v => (v && v.replace(/\D/g, '').length === 11) || 'Номер должен содержать 11 цифр'
+      v => v.length === 17 || "Номер должен состоять из 11 цифр"
     ],
     showVerificationDialog: false,
     benefits: [
@@ -169,30 +184,62 @@ export default {
       'Работа в своем районе или по всему городу'
     ]
   }),
+  async created() {
+    try {
+      const response = await axios.get(`${this.baseUrl}/api/v1/public/cabinets`);
+      if (response.data && response.data.data) {
+        this.cabinets = response.data.data
+      }
+    } catch (e) {
+      this.$toast.error(e.message);
+    }
+  },
   methods: {
     async submit() {
       if (this.$refs.form.validate()) {
         try {
-          await axios.post('http://localhost:8080/api/v1/public/verify-phone', { phone: this.form.phone })
+          await axios.post(`${this.baseUrl}/api/v1/public/verify-phone`, {phone: this.form.phone})
           this.showVerificationDialog = true
-        }
-        catch (e) {
-          console.log(e.response)
+          console.log(this.form.phone)
+        } catch (e) {
           this.$toast.error(e.response.data.message ?? 'Произошла ошибка')
         }
       }
     },
     onVerified() {
       this.showVerificationDialog = false
-      this.form.reset()
-      this.$vuetify.goTo(0, { duration: 300, easing: 'easeInOutCubic' })
+      this.form.reset();
+      this.formated_phone = ""
+      this.$refs.form.resetValidation();
+
       this.$toast.success('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.')
     },
     onError(message) {
-      this.showVerificationDialog = false
-
       this.$toast.error(message)
     },
+    formatPhone() {
+      let phone = this.formated_phone.replace(/\D/g, '');
+
+      if (phone.length > 0 && phone[0] !== '7') {
+        phone = '7' + phone.slice(1);
+      }
+      phone = phone.substring(0, 11);
+
+      this.form.phone = phone;
+
+      if (phone.length > 0) {
+        const match = phone.match(/^(\d{1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+        if (match) {
+          this.formated_phone = [
+            match[1],
+            match[2] ? ' (' + match[2] : '',
+            match[3] ? ') ' + match[3] : '',
+            match[4] ? '-' + match[4] : '',
+            match[5] ? '-' + match[5] : ''
+          ].join('');
+        }
+      }
+    }
   }
 }
 </script>

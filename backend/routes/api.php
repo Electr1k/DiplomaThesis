@@ -28,7 +28,7 @@ Route::prefix('v1')
         });
 
         Route::prefix('public')->group(function () {
-            Route::get('/cabinet', [CabinetController::class, 'index']);
+            Route::get('/cabinets', [CabinetController::class, 'index']);
             Route::post('verify-phone', [VerifyController::class, 'verifyPhone']);
             Route::post('registration', [CourierController::class, 'storeRegistrationTicket']);
         });

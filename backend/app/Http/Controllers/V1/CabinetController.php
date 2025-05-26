@@ -7,7 +7,6 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CabinetResource;
 use App\Models\Cabinet;
-use App\Repositories\CabinetRepository;
 use App\Service\CabinetService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -15,7 +14,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class CabinetController extends Controller
 {
 
-    public function __construct(private CabinetService $service)
+    public function __construct(private readonly CabinetService $service)
     {}
 
     /**

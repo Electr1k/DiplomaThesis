@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :value="internalValue" @input="updateValue" max-width="500" persistent>
+  <v-dialog :value="visible" max-width="500" persistent>
     <v-card>
       <v-card-title class="headline pink white--text">
         Подтверждение номера телефона
@@ -7,8 +7,8 @@
 
       <v-card-text class="pa-6">
         <p class="body-1 mb-6">
-          Вам поступит звонок с кодом подтверждения на номер
-          <strong>{{ formattedPhone }}</strong>.
+          Вам поступит СМС с кодом подтверждения на номер
+          <strong>{{ this.form.phone?.replace(/^(\d)(\d{3})(\d{3})(\d{2})(\d{2})$/, '$1 ($2) $3-$4-$5') }}</strong>.
           Введите полученный код ниже:
         </p>
 
@@ -25,10 +25,10 @@
               text
               x-small
               color="orange darken-2"
-              :disabled="resendDisabled"
+              :disabled="this.secondsReset > 0"
               @click="resendCode"
           >
-            Отправить код повторно {{ resendCountdown > 0 ? `(${resendCountdown})` : '' }}
+            Отправить код повторно {{ secondsReset > 0 ? `(${secondsReset})` : '' }}
           </v-btn>
         </div>
 
@@ -75,38 +75,26 @@ export default {
   },
   data() {
     return {
-      internalValue: this.value,
+      visible: this.value,
       code: '',
       loading: false,
       error: '',
-      resendCountdown: 0,
+      secondsReset: 0,
       resendInterval: null
     }
   },
   watch: {
     value(newVal) {
-      this.internalValue = newVal;
+      this.visible = newVal;
       if (newVal) {
         this.startResendCountdown();
       } else {
-        this.clearResendCountdown();
+        this.resendInterval = null;
       }
     }
   },
 
-  computed: {
-    formattedPhone() {
-      return this.form.phone?.replace(/^(\+\d)(\d{3})(\d{3})(\d{2})(\d{2})$/, '$1 ($2) $3-$4-$5')
-    },
-    resendDisabled() {
-      return this.resendCountdown > 0
-    }
-  },
   methods: {
-    updateValue(newValue) {
-      this.internalValue = newValue;
-      this.$emit('input', newValue);
-    },
     async verifyCode() {
       if (this.code.length < 4) return
       this.error = ''
@@ -119,16 +107,21 @@ export default {
         this.$emit('verified')
       }
       catch (e) {
-        this.code = null
-        this.close()
-        this.$emit('error', e.response.data.message ?? 'Произошла ошибка')
+        if (e.response.data.message !== 'Неверный код') {
+          this.close()
+          this.$emit('error', e.response.data.message ?? 'Произошла ошибка')
+        }
+        else {
+          this.error = 'Неверный код'
+        }
       }
       finally {
+        this.code = ""
         this.loading = false
       }
     },
     resendCode() {
-      if (this.resendDisabled) return
+      if (this.secondsReset > 0) return
 
       this.code = ''
       this.error = ''
@@ -138,30 +131,23 @@ export default {
     },
 
     startResendCountdown() {
-      this.resendCountdown = 60
+      this.secondsReset = 60
       this.resendInterval = setInterval(() => {
-        if (this.resendCountdown > 0) {
-          this.resendCountdown--
+        if (this.secondsReset > 0) {
+          this.secondsReset--
         } else {
-          this.clearResendCountdown()
+          this.resendInterval = null
         }
       }, 1000)
-    },
-    clearResendCountdown() {
-      clearInterval(this.resendInterval)
-      this.resendInterval = null
     },
 
     close() {
       this.code = ''
       this.error = ''
       this.loading = false
-      this.updateValue(false)
+      this.visible = false
       this.$emit('close')
     }
   },
-  beforeDestroy() {
-    this.clearResendCountdown()
-  }
 }
 </script>
