@@ -156,7 +156,7 @@ export default {
     PhoneVerificationDialog
   },
   data: () => ({
-    baseUrl: 'http://localhost:8080',
+    baseUrl: process.env.VUE_APP_BACKEND_URL,
     valid: true,
     form: new Form({
       name: null,
@@ -186,6 +186,7 @@ export default {
   }),
   async created() {
     try {
+      console.log(process.env.VUE_APP_BACKEND_URL)
       const response = await axios.get(`${this.baseUrl}/api/v1/public/cabinets`);
       if (response.data && response.data.data) {
         this.cabinets = response.data.data

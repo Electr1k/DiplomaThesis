@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Log;
+use function PHPUnit\Framework\isEmpty;
 
 class CreateCourierJob implements ShouldQueue
 {
@@ -26,7 +27,9 @@ class CreateCourierJob implements ShouldQueue
             $result = $dostavistaClient->storeCourier($this->courier->toArray());
         }
         catch (RequestException $e) {
-            $exceptionMessage = array_keys($e->response->json()['parameter_errors']) ?? 'Неизвестная ошибка';
+            Log::info($e->response->json());
+            $exceptionMessage = array_keys($e->response->json()['parameter_errors'] ?? []);
+            $exceptionMessage = isEmpty($exceptionMessage) ? 'Неизвестная ошибка' : 'Ошибки в полях: ' . implode(', ', $exceptionMessage);
         }
 
         $this->courier->status = ! ($result['is_successful'] ?? null) ? CourierRegistrationStatus::FAILED : CourierRegistrationStatus::CREATED;

@@ -58,3 +58,16 @@ services:
         command: npm run serve
         ports:
             - "3000:8080"
+
+    php-queue:
+        build:
+            context: .
+            dockerfile: docker/app/Dockerfile
+        restart: always
+        command: php artisan queue:work
+        working_dir: /app
+        depends_on:
+            - app
+            - pgsql
+        volumes:
+            - .:/app

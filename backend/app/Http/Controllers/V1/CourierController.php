@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\V1;
 
+use App\Events\NotificationSent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Couriers\CourierRegistrationStoreRequest;
 use App\Http\Requests\Couriers\CourierStoreRequest;
@@ -87,6 +88,8 @@ class CourierController extends Controller
         $registration = CourierRegistration::query()->create($data);
         $registration->status = CourierRegistrationStatus::WAITING;
         $registration->save();
+
+        event(new NotificationSent('Появилась новая заявка на регистрацию!'));
 
         return response()->json(['message' => 'Courier successfully registered'], 201);
     }
