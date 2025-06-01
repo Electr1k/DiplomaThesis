@@ -96,37 +96,31 @@ export default {
           text: 'ID',
           sortable: false,
           value: 'id',
-          align: 'center'
         },
         {
           text: 'Имя',
           sortable: false,
           value: 'name',
-          align: 'center'
         },
         {
           text: 'Фамилия',
           sortable: false,
           value: 'surname',
-          align: 'center'
         },
         {
           text: 'Отчество',
           sortable: false,
           value: 'middle_name',
-          align: 'center'
         },
         {
           text: 'Роль',
           sortable: false,
           value: 'role.name',
-          align: 'center'
         },
         {
           text: 'Email',
           sortable: false,
           value: 'email',
-          align: 'center'
         },
         {
           value: 'actions',

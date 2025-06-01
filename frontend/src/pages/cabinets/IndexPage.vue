@@ -72,25 +72,21 @@ export default {
           text: 'Регион',
           sortable: false,
           value: 'region_name',
-          align: 'center',
         },
         {
           text: 'Наименование юридического лица',
           sortable: false,
           value: 'legal_name',
-          align: 'center',
         },
         {
           text: 'Тип транспорта',
           sortable: false,
           value: 'vehicle_type_name',
-          align: 'center',
         },
         {
           text: 'Процент комиссии',
           sortable: false,
           value: 'partner_commission_part',
-          align: 'center',
         },
         {
           sortable: false,

@@ -143,43 +143,36 @@ export default {
           text: 'Номер',
           sortable: false,
           value: 'id',
-          align: 'center',
         },
         {
           text: 'Дата регистрации',
           sortable: false,
           value: 'created_at',
-          align: 'center',
         },
         {
           text: 'Статус',
           sortable: false,
           value: 'status',
-          align: 'center',
         },
         {
           text: 'Кабинет',
           sortable: false,
           value: 'cabinet.region_name',
-          align: 'center',
         },
         {
           text: 'Имя',
           sortable: false,
           value: 'name',
-          align: 'center',
         },
         {
           text: 'Фамилия',
           sortable: false,
           value: 'surname',
-          align: 'center',
         },
         {
           text: 'Ответственный',
           sortable: false,
           value: 'user',
-          align: 'center',
         },
         {
           value: 'actions',

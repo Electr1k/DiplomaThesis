@@ -1,5 +1,6 @@
 <template>
-  <v-navigation-drawer v-model="internalDrawer" app>
+  <v-navigation-drawer v-model="internalDrawer" app     :width="280"
+  >
     <v-img
         class="pa-4"
     >
@@ -17,7 +18,7 @@
     <v-divider></v-divider>
     <v-list>
       <v-list-item
-          v-for="(item, index) in links"
+          v-for="(item, index) in main_links"
           :key="index"
           link
           :to="{ name: item.route }"
@@ -31,6 +32,32 @@
           <v-list-item-title>{{ item.text }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
+      <v-list-group
+          prepend-icon="mdi-truck-delivery"
+          value="false"
+          active-class="primary--text"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>Достависта</v-list-item-title>
+        </template>
+
+        <v-list-item
+            v-for="(item, index) in dostavista_links"
+            :key="index"
+            link
+            :to="{ name: item.route }"
+            active-class="primary--text"
+            class="pl-8"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -51,10 +78,12 @@ export default {
     return {
       user_name: '',
       image: '',
-      links: [
+      main_links: [
         { icon: "mdi-view-dashboard-outline", text: "Главная", route: "dashboard" },
         { icon: "mdi-security", text: "Роли", route: "roles" },
         { icon: "mdi-account-box", text: "Сотрудники", route: "users" },
+      ],
+      dostavista_links: [
         { icon: "mdi-certificate", text: "Кабинеты партнеров", route: "cabinets" },
         { icon: "mdi-card-account-details-outline", text: "Клиенты", route: "couriers" },
         { icon: "mdi-clipboard-list-outline", text: "Регистрации", route: "registrations" },

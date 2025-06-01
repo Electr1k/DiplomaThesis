@@ -72,49 +72,41 @@ export default {
         {
           text: 'Дата последнего заказа',
           sortable: false,
-          align: 'center',
           value: 'last_order_datetime',
         },
         {
           text: 'Имя',
           sortable: false,
-          align: 'center',
           value: 'name',
         },
         {
           text: 'Фамилия',
           sortable: false,
-          align: 'center',
           value: 'surname',
         },
         {
           text: 'Отчество',
           sortable: false,
-          align: 'center',
           value: 'middle_name',
         },
         {
           text: 'Номер',
           sortable: false,
-          align: 'center',
           value: 'phone',
         },
         {
           text: 'Количество заказов',
           sortable: false,
-          align: 'center',
           value: 'orders_completed_count',
         },
         {
           text: 'Дата регистрации',
           sortable: false,
-          align: 'center',
           value: 'registered_datetime',
         },
         {
           text: 'Дата первого заказа',
           sortable: false,
-          align: 'center',
           value: 'first_order_datetime',
         },
         {
