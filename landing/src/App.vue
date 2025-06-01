@@ -117,6 +117,21 @@
                     </template>
                   </v-select>
 
+                  <v-checkbox
+                      v-model="form.consent"
+                      :rules="[v => !!v || 'Необходимо Ваше согласие']"
+                      required
+                      dense
+                      hide-details
+                      class="mt-0 pt-0"
+                  >
+                    <template v-slot:label>
+                      <div>
+                        Я даю согласие на обработку моих персональных данных
+                      </div>
+                    </template>
+                  </v-checkbox>
+
 
                   <v-btn
                       type="submit"
@@ -166,7 +181,8 @@ export default {
       middle_name: null,
       courier_partner_id: null,
       citizenship: null,
-      code: null
+      code: null,
+      consent: false
     }),
     formated_phone: "",
     citizenships: [{name: 'Гражданин страны', value: 'domestic'}, {name: 'Иностранный гражданин', value: 'foreign'}, {name: 'Неизвестно', value: 'unknown'},],
