@@ -25,6 +25,10 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+
+/**
+ * Контроллер для курьеров
+ */
 class CourierController extends Controller
 {
 
@@ -47,7 +51,7 @@ class CourierController extends Controller
     }
 
     /**
-     * Создание курьера.
+     * Создание курьера (сотрудником).
      */
     public function store(CourierStoreRequest $courier): JsonResponse
     {

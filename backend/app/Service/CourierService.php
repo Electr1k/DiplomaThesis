@@ -12,6 +12,9 @@ use Exception;
 use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Сервис для курьеров
+ */
 readonly class CourierService
 {
 
@@ -21,16 +24,19 @@ readonly class CourierService
         private DostavistaClient $cabinetService,
     ){}
 
+    /** Получить всех курьеров из БД */
     public function index(array $params): Collection
     {
         return $this->courierRepository->getAll($params);
     }
 
+    /** Получить неактивных курьеров из БД */
     public function indexInactive(array $params): Collection
     {
         return $this->courierRepository->getInactive($params);
     }
 
+    /** Создать курьера (сотрудником) */
     public function store(array $data): void
     {
         $currentUser = null;
@@ -46,6 +52,7 @@ readonly class CourierService
         CreateCourierJob::dispatch($courier);
     }
 
+    /** Импортировать курьеров из Достависта */
     public function fetch(): void
     {
         $couriers = $this->cabinetService->fetchCouriers();
@@ -55,6 +62,7 @@ readonly class CourierService
         }
     }
 
+    /** Обновить регистрацию курьера */
     public function updateRegistration(CourierRegistration $registration, array $data): CourierRegistration
     {
         $payload = JWTAuth::parseToken()->getPayload();

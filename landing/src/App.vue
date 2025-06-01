@@ -69,7 +69,7 @@
                       :rules="requiredRules"
                       label="Имя"
                       outlined
-                      prepend-inner-icon="mdi-account"
+                      prepend-inner-icon="mdi-card-account-details"
                   ></v-text-field>
 
                   <v-select
@@ -80,6 +80,7 @@
                       :item-text="item => `${item.region_name} (${item.vehicle_type_name})`"
                       item-value="courier_partner_id"
                       label="Город"
+                      prepend-inner-icon="mdi-city"
                   >
                     <template v-slot:item="{ item }">
                       <v-list-item-title>
@@ -107,6 +108,7 @@
                       item-text="name"
                       item-value="value"
                       label="Гражданство"
+                      prepend-inner-icon="mdi-passport"
                   >
                     <template v-slot:item="{ item }">
                       <v-list-item-title>

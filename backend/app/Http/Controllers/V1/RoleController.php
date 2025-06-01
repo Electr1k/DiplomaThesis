@@ -14,6 +14,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+/**
+ * Контроллер для ролей
+ */
 class RoleController extends Controller
 {
 
@@ -44,7 +47,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Обнолвение роли.
+     * Обновление роли.
      */
     public function update(RoleRequest $request, Role $role): RoleResource
     {

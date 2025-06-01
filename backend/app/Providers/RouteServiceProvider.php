@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+/** Код автоматически сгенерированный Laravel */
 class RouteServiceProvider extends ServiceProvider
 {
     /**

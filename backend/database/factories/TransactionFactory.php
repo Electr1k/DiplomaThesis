@@ -10,15 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * Фабрика для генерации случайной транзакции
  * @extends Factory<Transaction>
  */
 class TransactionFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** Переопределяемый метод с значением полей */
     public function definition(): array
     {
         $courier = Courier::query()->inRandomOrder()->first();

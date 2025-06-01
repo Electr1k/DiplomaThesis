@@ -4,10 +4,14 @@ namespace App\Repositories;
 
 use App\Models\Transaction;
 
+/**
+ * Репозиторий для транзакций
+ */
 class TransactionsRepository
 {
 
     /**
+     * Создание транзакции в БД
      * @param array $data
      * @return Transaction
      */

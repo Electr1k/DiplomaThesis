@@ -10,7 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Модель роли
- * @property string name
+ * @property int $id
+ * @property string $name
+ *
+ * @property-read User[] $users
+ * @property-read Permission[] $permissions
  */
 class Role extends Model
 {

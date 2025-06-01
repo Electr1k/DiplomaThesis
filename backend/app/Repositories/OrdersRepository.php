@@ -3,21 +3,15 @@
 namespace App\Repositories;
 
 use App\Models\Order;
-use Illuminate\Support\Collection;
 
+/**
+ * Репозиторий для заказов
+ */
 class OrdersRepository
 {
-    /**
-     * @return Collection<int, Order>
-     */
-    public function getAll(): Collection
-    {
-        return Order::all();
-    }
 
     /**
-     * @param array $data
-     * @return Order
+     * Создание заказа в БД
      */
     public function store(array $data): Order
     {

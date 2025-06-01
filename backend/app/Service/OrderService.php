@@ -8,6 +8,9 @@ use App\Repositories\OrdersRepository;
 use App\Service\DostavistaClients\DostavistaClient;
 use Carbon\Carbon;
 
+/**
+ * Сервис для заказов
+ */
 readonly class OrderService
 {
 
@@ -17,6 +20,7 @@ readonly class OrderService
         private DostavistaClient $dostavistaClient
     ){}
 
+    /** Импортировать заказы из Достависта */
     public function fetch(): void
     {
         $to = Carbon::now();

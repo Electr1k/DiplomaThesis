@@ -6,9 +6,13 @@ use App\Models\Cabinet;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Репозиторий для кабинетов
+ */
 class CabinetRepository
 {
     /**
+     * Получение всех кабинетов
      * @return Collection<int, Cabinet>
      */
     public function getAll(array $param): Collection
@@ -24,6 +28,7 @@ class CabinetRepository
     }
 
     /**
+     * Создание кабинета в БД
      * @param array $data
      * @return Cabinet
      */

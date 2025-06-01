@@ -11,11 +11,13 @@ use App\Service\CabinetService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+/**
+ * Контроллер для кабинетов
+ */
 class CabinetController extends Controller
 {
 
-    public function __construct(private readonly CabinetService $service)
-    {}
+    public function __construct(private readonly CabinetService $service){}
 
     /**
      * Получение всех кабинетов.

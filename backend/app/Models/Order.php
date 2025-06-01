@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Модель заказа
+ *
  * @property integer $order_id - Идентификатор заказа
  * @property integer $courier_id - Идентификатор курьера в Достависта
  * @property string $courier_first_name - Имя курьера

@@ -6,9 +6,13 @@ use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * Репозиторий для ролей
+ */
 class RoleRepository
 {
     /**
+     * Получение всех ролей
      * @return Collection<int, Role>
      */
     public function getAll(array $params): Collection
@@ -21,6 +25,7 @@ class RoleRepository
     }
 
     /**
+     * Создание новой роли в БД
      * @param array $data
      * @return Role
      */
@@ -35,6 +40,7 @@ class RoleRepository
 
 
     /**
+     * Обновление роли
      * @param array $data
      * @param Role $role
      * @return Role
@@ -50,6 +56,7 @@ class RoleRepository
     }
 
     /**
+     * Удаление роли
      * @param Role $role
      * @return ?bool
      */

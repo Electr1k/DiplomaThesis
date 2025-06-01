@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Контроллер для авторизации
+ */
 class AuthController extends Controller
 {
-
+    /**
+     * Метод для авторизации
+     */
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
@@ -30,6 +35,10 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+
+    /**
+     * Метод для отчистки токена
+     */
     public function logout(): JsonResponse
     {
         try {
@@ -43,6 +52,9 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Метод для рефреша токена
+     */
     public function refresh(): JsonResponse
     {
         try {

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Модель курьера
+ *
  * @property integer $courier_id - Идентификатор курьера в Достависта
  * @property string $name - Имя курьера
  * @property string $surname - Фамилия курьера

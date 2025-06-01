@@ -4,10 +4,11 @@ namespace App\Service\DostavistaClients;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use RuntimeException;
-use Throwable;
 
+/**
+ * Класс HTTP-client для интеграции с Dostavista API
+ */
 class DostavistaClient
 {
     private string $host;
@@ -53,12 +54,7 @@ class DostavistaClient
     }
 
     /**
-     * @param  array<mixed>  $data
-     * @param  array<mixed>  $additionalHeaders
-     * @param  array<mixed>  $queryParameters
-     * @return array<mixed>
-     *
-     * @throws Throwable
+     * Метод для отправки запроса
      */
     private function makeRequest(
         string $method,
@@ -89,6 +85,9 @@ class DostavistaClient
         return $response;
     }
 
+    /**
+     * Метод для получения списка кабиентов
+     */
     public function fetchCabinet(): array {
         /** @phpstan-ignore-next-line */
         return $this->makeRequest(
@@ -97,6 +96,9 @@ class DostavistaClient
         );
     }
 
+    /**
+     * Метод для создания курьера
+     */
     public function storeCourier(array $data): array {
         /** @phpstan-ignore-next-line */
         return $this->makeRequest(
@@ -106,6 +108,9 @@ class DostavistaClient
         );
     }
 
+    /**
+     * Метод для получения списка заказов
+     */
     public function fetchOrders(
         Carbon $dateFrom,
         Carbon $dateTo,
@@ -123,6 +128,9 @@ class DostavistaClient
         );
     }
 
+    /**
+     * Метод для получения списка курьеров
+     */
     public function fetchCouriers(?array $data = null): array {
         /** @phpstan-ignore-next-line */
         return $this->makeRequest(
@@ -135,6 +143,9 @@ class DostavistaClient
         );
     }
 
+    /**
+     * Метод для получения списка транзакций
+     */
     public function fetchTransactions(
         Carbon $dateFrom,
         Carbon $dateTo,

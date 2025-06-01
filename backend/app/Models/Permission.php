@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Модель разрешения
+ *
  * @property string $code - Код
  * @property string $name - Название
  */

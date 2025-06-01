@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Log;
 use RuntimeException;
 use Throwable;
 
+/**
+ * Класс HTTP-client для интеграции с SMS Aero
+ */
 class SMSAeroClient
 {
     private string $host;
@@ -51,12 +54,7 @@ class SMSAeroClient
     }
 
     /**
-     * @param string $method
-     * @param string $url
-     * @param array $data
-     * @return mixed
-     * @throws ConnectionException
-     * @throws RequestException
+     * Метод для отправки запроса
      */
     private function makeRequest(
         string $method,
@@ -72,7 +70,7 @@ class SMSAeroClient
     }
 
     /**
-     * @throws Throwable
+     * Метод для отправки СМС
      */
     public function sendSms(string $phone, int $code): void {
         Log::info($this->sender);

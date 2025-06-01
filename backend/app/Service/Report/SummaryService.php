@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-readonly class SummaryService
+/**
+ * Сервис для сводного отчета
+ */
+class SummaryService
 {
 
-    public function __construct(){}
-
+    /** Метод для получения сводного отчета */
     public function index(array $data): array
     {
         $group = $data['group'] ?? null;
@@ -50,6 +52,7 @@ readonly class SummaryService
         return $query->get()->toArray();
     }
 
+    /** Метод для подготовки подзапроса с транзакциями */
     private function getTransactionSubQuery(callable $toDate): Builder
     {
         return Transaction::query()
@@ -81,6 +84,7 @@ readonly class SummaryService
             ->groupBy('date');
     }
 
+    /** Метод для подготовки подзапроса с заказами */
     private function getOrderSubQuery(callable $toDate): Builder
     {
         return Order::query()

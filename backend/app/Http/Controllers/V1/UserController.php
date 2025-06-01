@@ -18,6 +18,9 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Контроллер для пользователей (сотрудников)
+ */
 class UserController extends Controller
 {
 
@@ -48,7 +51,7 @@ class UserController extends Controller
     }
 
     /**
-     * Обнолвение пользователя.
+     * Обновление пользователя.
      */
     public function update(UserUpdateRequest $request, User $user): UserResource
     {
@@ -63,6 +66,9 @@ class UserController extends Controller
         return response()->json(['status' => $this->userService->destroy($user)]);
     }
 
+    /**
+     * Получение пользователя по токену
+     */
     public function getUserByToken(): UserResource|JsonResponse
     {
         try {

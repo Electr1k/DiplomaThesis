@@ -9,6 +9,10 @@ use App\Http\Resources\PermissionResource;
 use App\Repositories\PermissionRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+
+/**
+ * Контрллер для разрешений
+ */
 class PermissionController extends Controller
 {
     /**

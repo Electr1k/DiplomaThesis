@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 
+/** Код автоматически сгенерированный Laravel */
 return [
 
     /*

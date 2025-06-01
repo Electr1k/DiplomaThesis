@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Временная метка
+ *
  * @property DateTimeMarkType $type - Тип метки
  * @property Carbon $date_time - Дата и время
  * @property Carbon $created_at
@@ -24,8 +25,4 @@ class DateTimeMark extends Model
         'date_time',
     ];
 
-    protected $casts = [
-//        'type' => DateTimeMarkType::class,
-//        'date_time' => Carbon::class,
-    ];
 }

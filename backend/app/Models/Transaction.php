@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Модель транзакции
+ *
  * @property integer $transaction_id - Идентификатор транзакции в Достависта
  * @property integer $courier_id - Идентификатор курьера
  * @property integer $order_id - Идентификатор заказа

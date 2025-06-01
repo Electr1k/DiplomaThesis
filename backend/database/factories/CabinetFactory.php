@@ -7,15 +7,12 @@ use App\Models\Enums\Cabinet\VehicleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * Фабрика для генерации случайного кабинета
  * @extends Factory<Cabinet>
  */
 class CabinetFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** Переопределяемый метод с значением полей */
     public function definition(): array
     {
         return [
@@ -28,7 +25,8 @@ class CabinetFactory extends Factory
         ];
     }
 
-    public function firstNames(): array
+    /** Список русских имен */
+    private function firstNames(): array
     {
         return [
             'Александр',
@@ -54,7 +52,8 @@ class CabinetFactory extends Factory
         ];
     }
 
-    public function surnames(): array
+    /** Список русских фамилий */
+    private function surnames(): array
     {
         return [
             'Иванов',

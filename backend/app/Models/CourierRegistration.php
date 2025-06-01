@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Модель регистрации курьера
+ *
  * @property integer $id - Идентификатор курьера (внутренний)
  * @property integer $courier_id - Идентификатор курьера в Достависта
  * @property string $name - Имя курьера

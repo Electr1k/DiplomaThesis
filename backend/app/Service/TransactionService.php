@@ -8,6 +8,9 @@ use App\Repositories\TransactionsRepository;
 use App\Service\DostavistaClients\DostavistaClient;
 use Carbon\Carbon;
 
+/**
+ * Сервис для транзакций
+ */
 readonly class TransactionService
 {
 
@@ -17,6 +20,7 @@ readonly class TransactionService
         private DostavistaClient $dostavistaClient
     ){}
 
+    /** Импортировать транзакции из Достависта */
     public function fetch(): void
     {
         $to = Carbon::now();

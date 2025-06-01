@@ -8,14 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * JSON ресурс для списка всех курьеров
  * @mixin Courier
  */
 class CourierIndexResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * Переобпределяемый метод с полями, которые должны быть в response
      */
     public function toArray(Request $request): array
     {
@@ -37,6 +36,9 @@ class CourierIndexResource extends JsonResource
         ];
     }
 
+    /**
+     * Метод для маскирования номера телефона
+     */
     private function hide_phone(string $value): string
     {
         if ($value[0] != '+') {

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Middleware для проверки прав доступа по токену
+ */
 class CheckPermission
 {
     public function handle(Request $request, Closure $next, string $permission): Response

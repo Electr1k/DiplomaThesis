@@ -5,12 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * JSON ресурс для сводного отчета
+ */
 class SummaryReportResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * Переобпределяемый метод с полями, которые должны быть в response
      */
     public function toArray(Request $request): array
     {

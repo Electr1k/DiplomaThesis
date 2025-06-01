@@ -5,19 +5,15 @@ namespace Database\Factories;
 use App\Models\Cabinet;
 use App\Models\Courier;
 use App\Models\Enums\Couriers\Citizenship;
-use App\Models\Enums\Couriers\CourierStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * Фабрика для генерации случайной регистрации
  * @extends Factory<Courier>
  */
 class CourierRegistrationFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** Переопределяемый метод с значением полей */
     public function definition(): array
     {
         return [
@@ -36,7 +32,8 @@ class CourierRegistrationFactory extends Factory
         ];
     }
 
-    public function firstNames(): array
+    /** Список русских имен */
+    private function firstNames(): array
     {
         return [
             'Александр',
@@ -62,7 +59,8 @@ class CourierRegistrationFactory extends Factory
         ];
     }
 
-    public function surnames(): array
+    /** Список русских фамилий */
+    private function surnames(): array
     {
         return [
             'Иванов',
@@ -88,8 +86,8 @@ class CourierRegistrationFactory extends Factory
         ];
     }
 
-
-    public function middleNames(): array
+    /** Список русских отчеств */
+    private function middleNames(): array
     {
         return [
             'Александрович',

@@ -7,13 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin CourierRegistration */
+/**
+ * JSON ресурс для регистрации
+ * @mixin CourierRegistration
+ */
 class CourierRegistrationResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * Переобпределяемый метод с полями, которые должны быть в response
      */
     public function toArray(Request $request): array
     {

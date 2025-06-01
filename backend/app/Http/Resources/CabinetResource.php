@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * JSON ресурс для кабинета
  * @mixin Cabinet
  */
 class CabinetResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * Переобпределяемый метод с полями, которые должны быть в response
      */
     public function toArray(Request $request): array
     {

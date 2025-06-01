@@ -11,9 +11,16 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Throwable;
 
+
+/**
+ * Контроллер для верификации номера телефона
+ */
 class VerifyController extends Controller
 {
 
+    /**
+     * Отправка СМС по номеру
+     */
     public function verifyPhone(VerifyPhoneRequest $request, SMSAeroClient $client): JsonResponse
     {
         $phone = $request->validated()['phone'];

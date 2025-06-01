@@ -11,6 +11,9 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Log;
 use function PHPUnit\Framework\isEmpty;
 
+/**
+ * Джоба для создания курьера в "Достависта"
+ */
 class CreateCourierJob implements ShouldQueue
 {
     use Queueable;
@@ -19,6 +22,9 @@ class CreateCourierJob implements ShouldQueue
     public function __construct(private readonly CourierRegistration $courier){}
 
 
+    /**
+     * Метод с действием при вызове
+     */
     public function handle(DostavistaClient $dostavistaClient): void
     {
         $result = [];
@@ -29,7 +35,9 @@ class CreateCourierJob implements ShouldQueue
         catch (RequestException $e) {
             Log::info($e->response->json());
             $exceptionMessage = array_keys($e->response->json()['parameter_errors'] ?? []);
-            $exceptionMessage = isEmpty($exceptionMessage) ? 'Неизвестная ошибка' : 'Ошибки в полях: ' . implode(', ', $exceptionMessage);
+            $exceptionMessage = isEmpty($exceptionMessage) ?
+                'Неизвестная ошибка' :
+                'Ошибки в полях: ' . implode(', ', $exceptionMessage);
         }
 
         $this->courier->status = ! ($result['is_successful'] ?? null) ? CourierRegistrationStatus::FAILED : CourierRegistrationStatus::CREATED;

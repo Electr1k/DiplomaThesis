@@ -16,6 +16,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Контроллер для отчетов
+ */
 class ReportController extends Controller
 {
 
@@ -29,6 +32,9 @@ class ReportController extends Controller
         return SummaryReportResource::collection($this->summaryService->index($request->validate([])));
     }
 
+    /**
+     * Метод для получения количества заказов по дням
+     */
     public function dashboardOrders(): JsonResponse
     {
         $data = Order::query()
@@ -44,6 +50,10 @@ class ReportController extends Controller
         return response()->json(['data' => $data]);
     }
 
+
+    /**
+     * Метод для получения количества новых клиентов по дням
+     */
     public function dashboardNewClients(): JsonResponse
     {
         $data = Courier::query()

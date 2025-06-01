@@ -6,9 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * Репозиторий для пользователей
+ */
 class UserRepository
 {
     /**
+     * Получение всех пользователей
      * @return Collection<int, User>
      */
     public function getAll(array $params): Collection
@@ -24,6 +28,7 @@ class UserRepository
     }
 
     /**
+     * Создание пользователя
      * @param array $data
      * @return User
      */
@@ -33,6 +38,7 @@ class UserRepository
     }
 
     /**
+     * Обновление пользователя
      * @param array $data
      * @param User $user
      * @return User
@@ -45,6 +51,7 @@ class UserRepository
     }
 
     /**
+     * Удаление пользователя
      * @param User $user
      * @return ?bool
      */

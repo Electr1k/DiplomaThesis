@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Модель кабинета партнера
+ *
  * @property integer $courier_partner_id - Идентификатор кабинета партнера
  * @property string $region_name - Регион партнёра
  * @property VehicleType $vehicle_type_name - Тип транспорта партнёра

@@ -6,9 +6,13 @@ use App\Models\Courier;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * Репозиторий для курьеров
+ */
 class CourierRepository
 {
     /**
+     * Получение всех курьеров
      * @return Collection<int, Courier>
      */
     public function getAll(array $params): Collection
@@ -22,6 +26,7 @@ class CourierRepository
     }
 
     /**
+     * Получение неактивных курьеров
      * @return Collection<int, Courier>
      */
     public function getInactive(array $params): Collection
@@ -39,6 +44,7 @@ class CourierRepository
     }
 
     /**
+     * Создание курьера в БД
      * @param array $data
      * @return Courier
      */

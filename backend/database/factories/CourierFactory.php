@@ -7,15 +7,12 @@ use App\Models\Enums\Couriers\CourierStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * Фабрика для генерации случайного курьера
  * @extends Factory<Courier>
  */
 class CourierFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** Переопределяемый метод с значением полей */
     public function definition(): array
     {
         $registration = fake()->dateTimeBetween('-1 month');
@@ -36,7 +33,8 @@ class CourierFactory extends Factory
         ];
     }
 
-    public function firstNames(): array
+    /** Список русских имен */
+    private function firstNames(): array
     {
         return [
             'Александр',
@@ -62,7 +60,8 @@ class CourierFactory extends Factory
         ];
     }
 
-    public function surnames(): array
+    /** Список русских фамилий */
+    private function surnames(): array
     {
         return [
             'Иванов',
@@ -88,8 +87,8 @@ class CourierFactory extends Factory
         ];
     }
 
-
-    public function middleNames(): array
+    /** Список русских отчеств */
+    private function middleNames(): array
     {
         return [
             'Александрович',

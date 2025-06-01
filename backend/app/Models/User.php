@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Модель пользователя
+ *
  * @property string $id - Идентификатор пользователя
  * @property string $name - Имя
  * @property string $surname - Фамилия

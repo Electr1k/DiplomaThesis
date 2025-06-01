@@ -7,9 +7,13 @@ use App\Models\Enums\Couriers\CourierRegistrationStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * Репозиторий для регистраций
+ */
 class CourierRegistrationRepository
 {
     /**
+     * Получение всех регистраций
      * @return Collection<int, CourierRegistration>
      */
     public function getAll(array $params): Collection
@@ -30,6 +34,7 @@ class CourierRegistrationRepository
     }
 
     /**
+     * Создание новой регистрации
      * @param array $data
      * @return CourierRegistration
      */
@@ -38,8 +43,4 @@ class CourierRegistrationRepository
         return CourierRegistration::query()->updateOrCreate(['phone' => $data['phone']], $data);
     }
 
-    public function update()
-    {
-
-    }
 }

@@ -5,6 +5,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
+/** Код автоматически сгенерированный Laravel */
 return [
 
     /*

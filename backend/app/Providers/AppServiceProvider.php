@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/** Код автоматически сгенерированный Laravel */
 class AppServiceProvider extends ServiceProvider
 {
     /**
