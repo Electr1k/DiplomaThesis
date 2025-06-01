@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CabinetFactory extends Factory
 {
+    use RussianNameTrait;
+
     /** Переопределяемый метод с значением полей */
     public function definition(): array
     {
@@ -22,60 +24,6 @@ class CabinetFactory extends Factory
             'legal_name' => $this->faker->randomElement($this->firstNames()) . ' ' . $this->faker->randomElement($this->surnames()),
             'partner_commission_part' => 0.03,
             'is_for_taking_available_couriers' => $this->faker->boolean(),
-        ];
-    }
-
-    /** Список русских имен */
-    private function firstNames(): array
-    {
-        return [
-            'Александр',
-            'Дмитрий',
-            'Максим',
-            'Сергей',
-            'Андрей',
-            'Алексей',
-            'Артём',
-            'Илья',
-            'Кирилл',
-            'Михаил',
-            'Никита',
-            'Матвей',
-            'Роман',
-            'Егор',
-            'Арсений',
-            'Иван',
-            'Денис',
-            'Евгений',
-            'Даниил',
-            'Тимофей'
-        ];
-    }
-
-    /** Список русских фамилий */
-    private function surnames(): array
-    {
-        return [
-            'Иванов',
-            'Петров',
-            'Сидоров',
-            'Смирнов',
-            'Кузнецов',
-            'Васильев',
-            'Попов',
-            'Соколов',
-            'Михайлов',
-            'Новиков',
-            'Фёдоров',
-            'Морозов',
-            'Волков',
-            'Алексеев',
-            'Лебедев',
-            'Семёнов',
-            'Егоров',
-            'Павлов',
-            'Козлов',
-            'Степанов'
         ];
     }
 }
