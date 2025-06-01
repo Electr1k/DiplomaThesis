@@ -3,7 +3,7 @@ import {$api} from "@/api/index";
 
 class BaseApi {
   constructor (data = {}) {
-    this.apiUrl = 'http://localhost:8080/api/v1'
+    this.apiUrl = process.env.VUE_APP_BASE_URL_API + '/api/v1'
     this.name = data.name
 
     this.url = {
